@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>MB_BodyMustBeSpecified</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_BodyMustBeSpecified</shortDescription>
+        <value>Body must be specified</value>
+    </labels>
+    <labels>
+        <fullName>MB_OriginatorsMustBeSpecified</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_OriginatorsMustBeSpecified</shortDescription>
+        <value>Originator must be specified</value>
+    </labels>
+    <labels>
+        <fullName>MB_RecipientsMustBeSpecified</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_RecipientsMustBeSpecified</shortDescription>
+        <value>Recipients must be specified</value>
+    </labels>
+</CustomLabels>
