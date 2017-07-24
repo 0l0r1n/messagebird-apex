@@ -1,5 +1,4 @@
 public class MessageBirdService {
-    public MessageBirdService() {
-
-    }
+    
+    public class MessageBirdException extends Exception {}
 }
