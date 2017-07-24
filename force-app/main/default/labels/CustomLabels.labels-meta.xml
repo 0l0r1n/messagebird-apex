@@ -8,6 +8,13 @@
         <value>Body must be specified</value>
     </labels>
     <labels>
+        <fullName>MB_InvalidValidity</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_InvalidValidity</shortDescription>
+        <value>validity must be &gt;= 0</value>
+    </labels>
+    <labels>
         <fullName>MB_OriginatorsMustBeSpecified</fullName>
         <language>nl_NL</language>
         <protected>true</protected>
