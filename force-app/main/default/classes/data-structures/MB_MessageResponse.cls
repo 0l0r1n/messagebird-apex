@@ -11,10 +11,15 @@ public class MB_MessageResponse {
     public Integer gateway { get; }
     public Map<String, Object> typeDetails { get; }
     public MB_DataCodingType datacoding = MB_DataCodingType.unicode;
-    public MB_MClassType mclass { get; }
     public Date scheduledDatetime { get; }
     public Date createdDatetime { get; }
     public Recipients recipients { get; }
+    public MB_MClassType mclass { 
+        get; set {
+            if (value.ordinal() == 0) mclass = MB_MClassType.flash;
+            else mclass = MB_MClassType.normal;
+        }
+    }
 
     class Recipients {
         public Integer totalSentCount { get; }

@@ -10,8 +10,12 @@ public class MessageBirdService implements IMessageBirdService {
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
     public MB_MessageResponse sendMessage(MB_Message message){
-        doCallout(MESSAGESPATH, Json.serialize(message), 'POST');
-        return null;
+        try { 
+           return (MB_MessageResponse)JSON.deserialize(doCallout(MESSAGESPATH, Json.serialize(message), 'POST'), MB_MessageResponse.class);
+        } catch (Exception e){
+            throw new MessageBirdException(e.getMessage());
+            return null;
+        }
     }
 
     public static String doCallout(String path, String body, String method){

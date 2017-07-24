@@ -28,9 +28,6 @@ public class MB_Message {
     }
     
     public MB_Message(String originator, String body, String recipients) {
-        System.debug(originator);
-        System.debug(body);
-        system.debug(recipients);
         if (originator == null || originator.trim().length() == 0)
             throw new MessageBirdService.MessageBirdException(Label.MB_OriginatorsMustBeSpecified);
         if (body == null || body.trim().length() == 0) {
