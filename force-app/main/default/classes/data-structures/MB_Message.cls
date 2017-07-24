@@ -1,16 +1,16 @@
 public class MB_Message {
 
-    private String originator { get; private set; } 
-    private String body { get; private set; }
-    private String recipients { get; private set; }
-    private String reference { get; set; }
-    private Integer gateway { get; set; }
-    private Map<String, Object> typeDetails { get; set; }
-    private MB_MClassType mclass { get; set; }
-    private Date scheduledDatetime { get; set; }
-    private MB_DataCodingType datacoding = MB_DataCodingType.plain;
-    
-    private MB_MsgType type { 
+    public String originator { get; private set; } 
+    public String body { get; private set; }
+    public String recipients { get; private set; }
+    public String reference { get; set; }
+    public Integer gateway { get; set; }
+    public Map<String, Object> typeDetails { get; set; }
+    public MB_MClassType mclass { get; set; }
+    public Date scheduledDatetime { get; set; }
+    public MB_DataCodingType datacoding = MB_DataCodingType.plain;
+
+    public MB_MsgType type { 
         get; set {
             type = value;
             if (type == MB_MsgType.flash)
@@ -20,7 +20,7 @@ public class MB_Message {
         } 
     }
     
-    private Integer validity { get; set {
+    public Integer validity { get; set {
             if (validity < 0)
                 throw new MessageBirdService.ValidityException(Label.MB_InvalidValidity);
             validity = value;
@@ -47,7 +47,7 @@ public class MB_Message {
         this(originator, body, receipientsAsCommaSeperated(recipients));
     }
 
-    private static String receipientsAsCommaSeperated(List<Long> recipients) {
+    public static String receipientsAsCommaSeperated(List<Long> recipients) {
         if (recipients == null) {
             return null;
         }
