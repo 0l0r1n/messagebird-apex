@@ -5,7 +5,7 @@ MessageBird REST API for Salesforce, built using SFDX
 ## Please note that this is not an official supported version by MessageBird
 
 This is just me on my free time, having some fun :)
-
+Heavily based on MessageBird's own java library - https://github.com/messagebird/java-rest-api
 ## Requirements
 
 - Sign up for a free MessageBird account
