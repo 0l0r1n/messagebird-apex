@@ -3,9 +3,15 @@ public class MB_Message {
     private String originator { get; private set; } 
     private String body { get; private set; }
     private String recipients { get; private set; }
+    private String reference { get; set; }
+    private Integer gateway { get; set; }
+    private Map<String, Object> typeDetails { get; set; }
+    private MB_MClassType mclass { get; set; }
+    private Date scheduledDatetime { get; set; }
+    private MB_DataCodingType datacoding = MB_DataCodingType.plain;
+    
     private MB_MsgType type { 
-        get;
-        set {
+        get; set {
             type = value;
             if (type == MB_MsgType.flash)
                 this.mclass = MB_MClassType.flash;
@@ -13,18 +19,13 @@ public class MB_Message {
                 this.mclass = MB_MClassType.normal;
         } 
     }
-    private String reference { get; set; }
+    
     private Integer validity { get; set {
             if (validity < 0)
                 throw new MessageBirdService.ValidityException(Label.MB_InvalidValidity);
             validity = value;
         }
     }
-    private Integer gateway { get; set; }
-    private Map<String, Object> typeDetails { get; set; }
-    private MB_MClassType mclass { get; set; }
-    private Date scheduledDatetime { get; set; }
-    private MB_DataCodingType datacoding = MB_DataCodingType.plain;
     
     public MB_Message(String originator, String body, String recipients) {
         if (originator == null || originator.trim().length() == 0)
