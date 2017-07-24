@@ -1,17 +1,17 @@
 public class MB_Message {
 
-    String originator { get; } 
-    String body { get; }
-    String recipients { get; }
+    public String originator { get; private set; } 
+    public String body { get; private set; }
+    public String recipients { get; private set; }
 
     public MB_Message(String originator, String body, String recipients) {
         if (originator == null || originator.trim().length() == 0)
-            throw new MessageBirdService.MessageBirdException('Originator must be specified');
+            throw new MessageBirdService.MessageBirdException(Label.MB_OriginatorsMustBeSpecified);
         if (body == null || body.trim().length() == 0) {
-            throw new MessageBirdService.MessageBirdException('Body must be specified');
+            throw new MessageBirdService.MessageBirdException(Label.MB_BodyMustBeSpecified);
         }
         if (recipients == null || recipients.trim().length() == 0) {
-            throw new MessageBirdService.MessageBirdException('Recipients must be specified');
+            throw new MessageBirdService.MessageBirdException(Label.MB_RecipientsMustBeSpecified);
         }    
 
         this.originator = originator.trim();
