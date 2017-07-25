@@ -11,15 +11,10 @@ public class MB_MessageResponse {
     public Integer gateway { get; }
     public Map<String, Object> typeDetails { get; }
     public MB_DataCodingType datacoding = MB_DataCodingType.unicode;
-    public Date scheduledDatetime { get; }
-    public Date createdDatetime { get; }
+    public String scheduledDatetime { get; }
+    public String createdDatetime { get; }
     public Recipients recipients { get; }
-    public MB_MClassType mclass { 
-        get; set {
-            if (value.ordinal() == 0) mclass = MB_MClassType.flash;
-            else mclass = MB_MClassType.normal;
-        }
-    }
+    public Integer mclass { get; }
 
     class Recipients {
         public Integer totalSentCount { get; }
@@ -31,6 +26,6 @@ public class MB_MessageResponse {
     class Items {
         public Long recipient { get; }
         public String status { get; }
-        public Date statusDateTime { get; }
+        public String statusDateTime { get; }
     }
 }
