@@ -1,4 +1,6 @@
 public with sharing class Util_Env {
+    
+    private static Boolean isSandbox;
     private static Map<String, Key_Value_Pair__mdt> kvpRecords;
 
     private static void populateKvpRecords() {
@@ -16,8 +18,10 @@ public with sharing class Util_Env {
         return getValue(key + (getIsSandbox() ? '_sbx' : '_prd' ));
     }
 
-    public static boolean getIsSandbox(){
-		return [SELECT IsSandbox FROM Organization limit 1].IsSandbox;
+    public static Boolean getIsSandbox(){
+        if (isSandbox == null)
+		    isSandbox = [SELECT IsSandbox FROM Organization limit 1].IsSandbox;
+        return isSandbox;
 	}
     
 }

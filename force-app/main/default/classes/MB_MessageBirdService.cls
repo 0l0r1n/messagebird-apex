@@ -10,7 +10,24 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
     public MB_MessageResponse sendMessage(MB_Message message){
-        return (MB_MessageResponse)JSON.deserialize(doCallout(MESSAGESPATH, Json.serialize(message), 'POST'), MB_MessageResponse.class);
+        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+    }
+
+    public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients){
+        MB_Message message = new MB_Message(originator, body, recipients);
+        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+    }
+
+    public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients, String reference){
+        MB_Message message = new MB_Message(originator, body, recipients);
+        message.reference = reference;
+        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+    }
+
+    public MB_MessageResponse sendFlashMessage(String originator, String body, List<Long> recipients) {
+        MB_Message message = new MB_Message(originator, body, recipients);
+        message.type = MB_MsgType.flash;
+        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
     }
 
     public static String doCallout(String path, String body, String method){
