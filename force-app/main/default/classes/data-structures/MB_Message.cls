@@ -9,7 +9,6 @@ public class MB_Message {
     public Integer mclass { get; set; }
     public Date scheduledDatetime { get; set; }
     public MB_DataCodingType datacoding = MB_DataCodingType.plain;
-
     public MB_MsgType type { 
         get; set {
             type = value;
@@ -62,6 +61,16 @@ public class MB_Message {
         return recipientsAsString.substring(0, recipientsAsString.length() - 1);
     }
 
+    public void setPremiumSMS(Object shortcode, Object keyword, Object tariff, Object mid) {
+        final Map<String, Object> premiumSMSConfig = new Map<String, Object>();
+        premiumSMSConfig.put('shortcode', shortcode);
+        premiumSMSConfig.put('keyword', keyword);
+        premiumSMSConfig.put('tariff', tariff);
+        premiumSMSConfig.put('mid', mid);
+        this.typeDetails = premiumSMSConfig;
+        this.type = MB_MsgType.premium;
+    }
+    
     public static MB_Message createBinarySMS(String originator, String header, String body, String recipients) {
         MB_Message msg = new MB_Message(originator, body, recipients);
         final Map<String, Object> binarySMS = new Map<String, Object>();
@@ -73,16 +82,6 @@ public class MB_Message {
     
     public static MB_Message createBinarySMS(String originator, String header, String body, List<long> recipients) {
         return MB_Message.createBinarySMS(originator, header, body, receipientsAsCommaSeperated(recipients));
-    }
-
-    public void setPremiumSMS(Object shortcode, Object keyword, Object tariff, Object mid) {
-        final Map<String, Object> premiumSMSConfig = new Map<String, Object>();
-        premiumSMSConfig.put('shortcode', shortcode);
-        premiumSMSConfig.put('keyword', keyword);
-        premiumSMSConfig.put('tariff', tariff);
-        premiumSMSConfig.put('mid', mid);
-        this.typeDetails = premiumSMSConfig;
-        this.type = MB_MsgType.premium;
     }
 
 }

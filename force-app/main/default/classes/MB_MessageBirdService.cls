@@ -10,31 +10,34 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
     public MB_MessageResponse sendMessage(MB_Message message){
-        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+        return (MB_MessageResponse)JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
     }
 
     public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients){
-        MB_Message message = new MB_Message(originator, body, recipients);
-        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+        return sendMessage(new MB_Message(originator, body, recipients));
     }
 
     public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients, String reference){
         MB_Message message = new MB_Message(originator, body, recipients);
         message.reference = reference;
-        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+        return sendMessage(message);
     }
 
     public MB_MessageResponse sendFlashMessage(String originator, String body, List<Long> recipients) {
         MB_Message message = new MB_Message(originator, body, recipients);
         message.type = MB_MsgType.flash;
-        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+        return sendMessage(message);
     }
 
     public MB_MessageResponse sendFlashMessage(String originator, String body, List<Long> recipients, String reference) {
         MB_Message message = new MB_Message(originator, body, recipients);
         message.type = MB_MsgType.flash;
         message.reference = reference;
-        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+        return sendMessage(message);
+    }
+
+    public MB_Balance getBalance(){
+        return (MB_Balance)JSON.deserialize(doCallout(BALANCEPATH, null, 'GET'), MB_Balance.class);
     }
 
     public static String doCallout(String path, String body, String method){
@@ -44,7 +47,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         request.setEndpoint(ENDPOINT + path);
         request.setHeader('Content-Type', 'application/json');
         request.setHeader('Authorization','AccessKey ' + 'OlT1W3xGaE6qPha3oQBDKgCsN');
-        request.setBody(body);
+        if (body != null) request.setBody(body);
         HttpResponse response = http.send(request);
         System.debug(response.getBody());
         return response.getBody();
