@@ -1,4 +1,4 @@
-public class SendMessageResponseMock implements HttpCalloutMock {
+public class MB_SendMessageResponseMock implements HttpCalloutMock {
 
     public static final String SMS_BODY = 'I solemnly swear I am up to no good';
 

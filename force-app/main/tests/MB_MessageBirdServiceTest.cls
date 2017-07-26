@@ -1,5 +1,5 @@
 @isTest
-private class MessageBirdServiceTest {
+private class MB_MessageBirdServiceTest {
 
     static testmethod void test_sendMessage(){
         Test.setMock(HttpCalloutMock.class, new MB_SendMessageResponseMock());
