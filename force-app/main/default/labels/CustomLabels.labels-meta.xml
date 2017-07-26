@@ -22,11 +22,32 @@
         <value>validity must be &gt;= 0</value>
     </labels>
     <labels>
+        <fullName>MB_LimitMustBeGtZero</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_LimitMustBeGtZero</shortDescription>
+        <value>Limit must be &gt; 0</value>
+    </labels>
+    <labels>
+        <fullName>MB_MessageIdMustBeSpecified</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_MessageIdMustBeSpecified</shortDescription>
+        <value>Message ID must be specified.</value>
+    </labels>
+    <labels>
         <fullName>MB_MsisdnMustBeSpecified</fullName>
         <language>nl_NL</language>
         <protected>true</protected>
         <shortDescription>MB_MsisdnMustBeSpecified</shortDescription>
         <value>msisdn must be specified.</value>
+    </labels>
+    <labels>
+        <fullName>MB_OffsetMustBeGtZero</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_OffsetMustBeGtZero</shortDescription>
+        <value>Offset must be &gt; 0.</value>
     </labels>
     <labels>
         <fullName>MB_OriginatorsMustBeSpecified</fullName>

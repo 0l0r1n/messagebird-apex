@@ -16,14 +16,14 @@ public class MB_MessageResponse {
     public Recipients recipients { get; }
     public Integer mclass { get; }
 
-    class Recipients {
+    public class Recipients {
         public Integer totalSentCount { get; }
         public Integer totalDeliveredCount { get; }
         public Integer totalDeliveryFailedCount { get; }
         public List<Items> items { get; }
     }
 
-    class Items {
+    public class Items {
         public Long recipient { get; }
         public String status { get; }
         public String statusDateTime { get; }

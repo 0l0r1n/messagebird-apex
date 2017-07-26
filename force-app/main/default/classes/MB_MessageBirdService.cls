@@ -10,15 +10,15 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
     // Messaging
-    public MB_MessageResponse sendMessage(MB_Message message){
+    public MB_MessageResponse sendMessage(MB_Message message) {
         return (MB_MessageResponse)JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
     }
 
-    public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients){
+    public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients) {
         return sendMessage(new MB_Message(originator, body, recipients));
     }
 
-    public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients, String reference){
+    public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients, String reference) {
         MB_Message message = new MB_Message(originator, body, recipients);
         message.reference = reference;
         return sendMessage(message);
@@ -45,17 +45,30 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
      public MB_MessageResponse viewMessage(String id) {
          if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
          return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH + '/' + id, null, 'GET'), MB_MessageResponse.class);
-     }
+    }
+
+    public MB_MessageList listMessages(Integer offset, Integer limit_x) {
+        if (offset != null && offset < 0) throw new IllegalArgumentException(Label.MB_OffsetMustBeGtZero);
+        if (limit_x != null && limit_x < 0) throw new IllegalArgumentException(Label.MB_LimitMustBeGtZero);
+        Map<String, Object> queryParams = new Map<String, Object>();
+        queryParams.put('limit', limit_x);
+        queryParams.put('offset', offset);
+        String response = doCallout(MESSAGESPATH + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
+        return (MB_MessageList) JSON.deserialize(response.replace('limit', 'limit_x'), MB_MessageList.class);
+    }
 
     // End Messaging
 
+    // Voice Messaging
+
+    // End Voice Messaging
 
     // Others - These probably not that relevant in salesforce. But hey, who am I to judge?
     public MB_Balance getBalance(){
         return (MB_Balance)JSON.deserialize(doCallout(BALANCEPATH, null, 'GET'), MB_Balance.class);
     }
 
-    public MB_Hlr getRequestHlr(Long msisdn, String reference){
+    public MB_Hlr getRequestHlr(Long msisdn, String reference) {
         if (msisdn == null)     throw new IllegalArgumentException(Label.MB_MsisdnMustBeSpecified);
         if (reference == null)  throw new IllegalArgumentException(Label.MB_ReferenceMustBeSpecified);
         
@@ -65,12 +78,12 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_Hlr)JSON.deserialize(doCallout(HLRPATH, JSON.serialize(payload), 'POST'), MB_Hlr.class);
     }
 
-    public MB_Hlr getViewHlr(String hlrId){
+    public MB_Hlr getViewHlr(String hlrId) {
         if (hlrId == null) throw new IllegalArgumentException(Label.MB_HlrIdMustBeSpecified);
         return (MB_Hlr)JSON.deserialize(doCallout(HLRPATH + '/' + hlrId, null, 'GET'), MB_Hlr.class);
     }
 
-    public static String doCallout(String path, String body, String method){
+    public static String doCallout(String path, String body, String method) {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setMethod(method);
