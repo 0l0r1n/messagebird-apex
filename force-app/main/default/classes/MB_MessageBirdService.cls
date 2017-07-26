@@ -1,4 +1,4 @@
-public class MessageBirdService implements IMessageBirdService {
+public class MB_MessageBirdService implements MB_IMessageBirdService {
     
     private static final String ENDPOINT = 'https://rest.messagebird.com';
     private static final String BALANCEPATH = '/balance';
