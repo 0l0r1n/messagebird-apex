@@ -6,7 +6,7 @@ public class MB_Message {
     public String reference { get; set; }
     public Integer gateway { get; set; }
     public Map<String, Object> typeDetails { get; set; }
-    public MB_MClassType mclass { get; set; }
+    public Integer mclass { get; set; }
     public Date scheduledDatetime { get; set; }
     public MB_DataCodingType datacoding = MB_DataCodingType.plain;
 
@@ -14,9 +14,9 @@ public class MB_Message {
         get; set {
             type = value;
             if (type == MB_MsgType.flash)
-                this.mclass = MB_MClassType.flash;
+                this.mclass = MB_MClassType.flash.ordinal();
             else
-                this.mclass = MB_MClassType.normal;
+                this.mclass = MB_MClassType.normal.ordinal();
         } 
     }
     

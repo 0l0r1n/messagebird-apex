@@ -46,6 +46,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         request.setHeader('Authorization','AccessKey ' + 'OlT1W3xGaE6qPha3oQBDKgCsN');
         request.setBody(body);
         HttpResponse response = http.send(request);
+        System.debug(response.getBody());
         return response.getBody();
     }
     
