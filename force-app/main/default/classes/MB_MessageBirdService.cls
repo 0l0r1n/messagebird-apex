@@ -30,6 +30,13 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
     }
 
+    public MB_MessageResponse sendFlashMessage(String originator, String body, List<Long> recipients, String reference) {
+        MB_Message message = new MB_Message(originator, body, recipients);
+        message.type = MB_MsgType.flash;
+        message.reference = reference;
+        return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+    }
+
     public static String doCallout(String path, String body, String method){
         Http http = new Http();
         HttpRequest request = new HttpRequest();
