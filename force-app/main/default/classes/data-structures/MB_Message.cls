@@ -28,12 +28,12 @@ public class MB_Message {
     
     public MB_Message(String originator, String body, String recipients) {
         if (originator == null || originator.trim().length() == 0)
-            throw new MB_MessageBirdService.MessageBirdException(Label.MB_OriginatorsMustBeSpecified);
+            throw new MB_MessageBirdService.IllegalArgumentException(Label.MB_OriginatorsMustBeSpecified);
         if (body == null || body.trim().length() == 0) {
-            throw new MB_MessageBirdService.MessageBirdException(Label.MB_BodyMustBeSpecified);
+            throw new MB_MessageBirdService.IllegalArgumentException(Label.MB_BodyMustBeSpecified);
         }
         if (recipients == null || recipients.trim().length() == 0) {
-            throw new MB_MessageBirdService.MessageBirdException(Label.MB_RecipientsMustBeSpecified);
+            throw new MB_MessageBirdService.IllegalArgumentException(Label.MB_RecipientsMustBeSpecified);
         }    
 
         this.originator = originator.trim();

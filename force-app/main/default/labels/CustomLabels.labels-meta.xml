@@ -8,11 +8,25 @@
         <value>Body must be specified</value>
     </labels>
     <labels>
+        <fullName>MB_HlrIdMustBeSpecified</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_HlrIdMustBeSpecified</shortDescription>
+        <value>hlrId must be specified.</value>
+    </labels>
+    <labels>
         <fullName>MB_InvalidValidity</fullName>
         <language>nl_NL</language>
         <protected>true</protected>
         <shortDescription>MB_InvalidValidity</shortDescription>
         <value>validity must be &gt;= 0</value>
+    </labels>
+    <labels>
+        <fullName>MB_MsisdnMustBeSpecified</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_MsisdnMustBeSpecified</shortDescription>
+        <value>msisdn must be specified.</value>
     </labels>
     <labels>
         <fullName>MB_OriginatorsMustBeSpecified</fullName>
@@ -27,5 +41,12 @@
         <protected>true</protected>
         <shortDescription>MB_RecipientsMustBeSpecified</shortDescription>
         <value>Recipients must be specified</value>
+    </labels>
+    <labels>
+        <fullName>MB_ReferenceMustBeSpecified</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_ReferenceMustBeSpecified</shortDescription>
+        <value>Reference must be specified.</value>
     </labels>
 </CustomLabels>

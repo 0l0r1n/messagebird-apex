@@ -9,6 +9,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPPATH = '/lookup';
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
+    // Messaging
     public MB_MessageResponse sendMessage(MB_Message message){
         return (MB_MessageResponse)JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
     }
@@ -36,8 +37,37 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return sendMessage(message);
     }
 
+     public void deleteMessage(String id) {
+        if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
+        doCallout(MESSAGESPATH + '/' + id, null, 'DELETE');
+    }
+
+     public MB_MessageResponse viewMessage(String id) {
+         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
+         return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH + '/' + id, null, 'GET'), MB_MessageResponse.class);
+     }
+
+    // End Messaging
+
+
+    // Others - These probably not that relevant in salesforce. But hey, who am I to judge?
     public MB_Balance getBalance(){
         return (MB_Balance)JSON.deserialize(doCallout(BALANCEPATH, null, 'GET'), MB_Balance.class);
+    }
+
+    public MB_Hlr getRequestHlr(Long msisdn, String reference){
+        if (msisdn == null)     throw new IllegalArgumentException(Label.MB_MsisdnMustBeSpecified);
+        if (reference == null)  throw new IllegalArgumentException(Label.MB_ReferenceMustBeSpecified);
+        
+        Map<String, Object> payload = new Map<String, Object>();
+        payload.put('msisdn', msisdn);
+        payload.put('reference', reference);
+        return (MB_Hlr)JSON.deserialize(doCallout(HLRPATH, JSON.serialize(payload), 'POST'), MB_Hlr.class);
+    }
+
+    public MB_Hlr getViewHlr(String hlrId){
+        if (hlrId == null) throw new IllegalArgumentException(Label.MB_HlrIdMustBeSpecified);
+        return (MB_Hlr)JSON.deserialize(doCallout(HLRPATH + '/' + hlrId, null, 'GET'), MB_Hlr.class);
     }
 
     public static String doCallout(String path, String body, String method){
@@ -54,5 +84,6 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     }
     
     public class MessageBirdException extends Exception {}
+    public class IllegalArgumentException extends Exception {}
     public class ValidityException extends Exception {}
 }
