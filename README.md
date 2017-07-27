@@ -13,7 +13,6 @@ Heavily based on MessageBird's own java library - https://github.com/messagebird
 - SalesforceDX cli installed
 
 ## Installation
-
 ### DX
 
     git clone https://github.com/0l0r1n/messagebird-apex
@@ -31,6 +30,4 @@ To convert the source to use the metadata api for a sandbox or production:
     sfdx force:source:convert -d mdapi_output_dir/ --packagename package_name
 
 Then you will be able to use ant (or any automated tool) to run your deployment
-
-
-
+## Setup

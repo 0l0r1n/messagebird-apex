@@ -89,7 +89,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         request.setMethod(method);
         request.setEndpoint(ENDPOINT + path);
         request.setHeader('Content-Type', 'application/json');
-        request.setHeader('Authorization','AccessKey ' + 'OlT1W3xGaE6qPha3oQBDKgCsN');
+        request.setHeader('Authorization','AccessKey ' + Util_Env.getValue('MB_AccessKey'));
         if (body != null) request.setBody(body);
         HttpResponse response = http.send(request);
         System.debug(response.getBody());
