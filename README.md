@@ -1,6 +1,6 @@
-# SFDX  App
+MessageBird Apex Library
 
-MessageBird REST API for Salesforce, built using SFDX
+MessageBird Wrapper Library for Salesforce, built using SFDX
 
 ## Please note that this is not an official supported version by MessageBird
 
