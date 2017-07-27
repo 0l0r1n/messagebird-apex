@@ -9,7 +9,6 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPPATH = '/lookup';
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
-    // Messaging
     public MB_MessageResponse sendMessage(MB_Message message) {
         return (MB_MessageResponse)JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
     }
@@ -56,14 +55,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         String response = doCallout(MESSAGESPATH + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
         return (MB_MessageList) JSON.deserialize(response.replace('limit', 'limit_x'), MB_MessageList.class);
     }
-
-    // End Messaging
-
-    // Voice Messaging
-
-    // End Voice Messaging
-
-    // Others - These probably not that relevant in salesforce. But hey, who am I to judge?
+    
     public MB_Balance getBalance(){
         return (MB_Balance)JSON.deserialize(doCallout(BALANCEPATH, null, 'GET'), MB_Balance.class);
     }
@@ -95,6 +87,20 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         System.debug(response.getBody());
         return response.getBody();
     }
+
+    // TODO: Voice Messaging
+
+    // TODO: Chat
+
+    // TODO: Lookup
+
+    // TODO: Contacts
+
+    // TODO: Groups
+
+    // TODO: SMPP
+
+    // TODO: Mail to SMS
     
     public class MessageBirdException extends Exception {}
     public class IllegalArgumentException extends Exception {}
