@@ -31,3 +31,6 @@ To convert the source to use the metadata api for a sandbox or production:
 
 Then you will be able to use ant (or any automated tool) to run your deployment
 ## Setup
+
+- Add new access key as custom metadata records on Key_Value_Pair__mdt records.
+    - Use the label/developer name 'MB_AccessKey'

@@ -3,11 +3,11 @@
     <custom>false</custom>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Key_Value__mdt.Value__c</field>
+        <field>Key_Value_Pair__mdt.Value__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <layoutAssignments>
-        <layout>Key_Value__mdt-Lay-out voor Key Value</layout>
+        <layout>Key_Value_Pair__mdt-Lay-out voor Key Value</layout>
     </layoutAssignments>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
