@@ -43,22 +43,7 @@ public class MB_Message {
     }
 
     public MB_Message(String originator, String body, List<Long> recipients){
-        this(originator, body, receipientsAsCommaSeperated(recipients));
-    }
-
-    public static String receipientsAsCommaSeperated(List<Long> recipients) {
-        if (recipients == null) {
-            return null;
-        }
-        if (recipients.size() == 0) {
-            return '';
-        }
-        String recipientsAsString = '';
-        for (Long l : recipients) {
-            recipientsAsString = String.valueOf(l) + ',';
-        }
-        
-        return recipientsAsString.substring(0, recipientsAsString.length() - 1);
+        this(originator, body, MB_MessageUtilities.recipientsAsCommaSeparated(recipients));
     }
 
     public void setPremiumSMS(Object shortcode, Object keyword, Object tariff, Object mid) {
@@ -81,7 +66,7 @@ public class MB_Message {
     }
     
     public static MB_Message createBinarySMS(String originator, String header, String body, List<long> recipients) {
-        return MB_Message.createBinarySMS(originator, header, body, receipientsAsCommaSeperated(recipients));
+        return MB_Message.createBinarySMS(originator, header, body, MB_MessageUtilities.recipientsAsCommaSeparated(recipients));
     }
 
 }

@@ -70,4 +70,11 @@
         <shortDescription>MB_ReferenceMustBeSpecified</shortDescription>
         <value>Reference must be specified.</value>
     </labels>
+    <labels>
+        <fullName>MB_RepeatCannotBeLtZero</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_RepeatCannotBeLtZero</shortDescription>
+        <value>Repeat cannot be &lt; 1.</value>
+    </labels>
 </CustomLabels>
