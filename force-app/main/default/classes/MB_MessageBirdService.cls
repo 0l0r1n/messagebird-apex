@@ -49,9 +49,6 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     public MB_MessageList listMessages(Integer offset, Integer limit_x) {
         if (offset != null && offset < 0) throw new IllegalArgumentException(Label.MB_OffsetMustBeGtZero);
         if (limit_x != null && limit_x < 0) throw new IllegalArgumentException(Label.MB_LimitMustBeGtZero);
-        Map<String, Object> queryParams = new Map<String, Object>();
-        queryParams.put('limit', limit_x);
-        queryParams.put('offset', offset);
         return (MB_MessageList) JSON.deserialize(requestList(MESSAGESPATH, offset, limit_x), MB_MessageList.class);
     }
     
@@ -101,9 +98,6 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     public MB_MessageList listVoiceMessages(Integer offset, Integer limit_x){
         if (offset != null && offset < 0) throw new IllegalArgumentException(Label.MB_OffsetMustBeGtZero);
         if (limit_x != null && limit_x < 0) throw new IllegalArgumentException(Label.MB_LimitMustBeGtZero);
-        Map<String, Object> queryParams = new Map<String, Object>();
-        queryParams.put('limit', limit_x);
-        queryParams.put('offset', offset);
         return (MB_MessageList) JSON.deserialize(requestList(VOICEMESSAGESPATH, offset, limit_x), MB_MessageList.class);
     }
 
@@ -124,6 +118,9 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     }
 
     private static String requestList(String path, Integer offset, Integer limit_x){
+        Map<String, Object> queryParams = new Map<String, Object>();
+        queryParams.put('limit', limit_x);
+        queryParams.put('offset', offset);
         String response = doCallout(path + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
         return response.replace('limit', 'limit_x');
     }
