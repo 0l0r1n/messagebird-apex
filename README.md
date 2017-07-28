@@ -20,7 +20,7 @@ Heavily based on MessageBird's own java library - https://github.com/messagebird
 
 To create a new scratch org with the configuration:
 
-    sfdx force:org:create -s -f config/project-scratch-def.json -a "messagebird-tests"
+    sfdx force:org:create -s -f config/project-scratch-def.json -a "messagebird"
     sfdx force:source:push
     sfdx force:org:open
 
