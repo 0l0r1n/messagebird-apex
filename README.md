@@ -34,3 +34,16 @@ Then you will be able to use ant (or any automated tool) to run your deployment
 
 - Add new access key as custom metadata records on Key_Value_Pair__mdt records.
     - Use the label/developer name 'MB_AccessKey'
+
+## Usage
+
+The MB_MessageBirdService class contain the methods you need to call the MessageBird API.
+```apex
+    MB_MessageBirdService messageBirdService = new MB_MessageBirdService();
+```
+- Sending a SMS:
+    - with a message object
+```apex
+    MB_Message message = new MB_Message('Ganondorf', 'I\'ve got your pretty princess, come get me', '4815162342'); // multiple constructors available
+    mb.sendMessage(message);
+```
