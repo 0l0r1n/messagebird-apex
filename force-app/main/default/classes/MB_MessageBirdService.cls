@@ -52,8 +52,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         Map<String, Object> queryParams = new Map<String, Object>();
         queryParams.put('limit', limit_x);
         queryParams.put('offset', offset);
-        String response = doCallout(MESSAGESPATH + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
-        return (MB_MessageList) JSON.deserialize(response.replace('limit', 'limit_x'), MB_MessageList.class);
+        return (MB_MessageList) JSON.deserialize(requestList(MESSAGESPATH, offset, limit_x), MB_MessageList.class);
     }
     
     public MB_Balance getBalance(){
@@ -94,12 +93,19 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         deleteById(VOICEMESSAGESPATH, id);
     }
 
-    public MB_VoiceMessageResponse VoiceMessageResponse(String id){
+    public MB_VoiceMessageResponse viewVoiceMessage(String id){
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
         return (MB_VoiceMessageResponse) JSON.deserialize(requestById(MESSAGESPATH, id), MB_MessageResponse.class);
     }
 
-
+    public MB_MessageList listVoiceMessages(Integer offset, Integer limit_x){
+        if (offset != null && offset < 0) throw new IllegalArgumentException(Label.MB_OffsetMustBeGtZero);
+        if (limit_x != null && limit_x < 0) throw new IllegalArgumentException(Label.MB_LimitMustBeGtZero);
+        Map<String, Object> queryParams = new Map<String, Object>();
+        queryParams.put('limit', limit_x);
+        queryParams.put('offset', offset);
+        return (MB_MessageList) JSON.deserialize(requestList(VOICEMESSAGESPATH, offset, limit_x), MB_MessageList.class);
+    }
 
     // TODO: Chat
 
@@ -115,6 +121,11 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
     private static void deleteById(String path, String id){
         doCallout(path + '/' + id, null, 'DELETE');
+    }
+
+    private static String requestList(String path, Integer offset, Integer limit_x){
+        String response = doCallout(path + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
+        return response.replace('limit', 'limit_x');
     }
 
     private static String sendPayload(String path, String payload){
