@@ -37,13 +37,33 @@ Then you will be able to use ant (or any automated tool) to run your deployment
 
 ## Usage
 
+This library current supports:
+
+- Message API
+- Voice Message API
+- Balance API
+- HLR API
+
+MessageBird has an awesome API, here are a few examples of what you can do:
+
 The MB_MessageBirdService class contain the methods you need to call the MessageBird API.
 ```apex
     MB_MessageBirdService messageBirdService = new MB_MessageBirdService();
 ```
 - Sending a SMS:
-    - with a message object
 ```apex
     MB_Message message = new MB_Message('Ganondorf', 'I\'ve got your pretty princess, come get me', '4815162342'); // multiple constructors available
     mb.sendMessage(message);
 ```
+
+- Getting your balance
+```apex
+    mb.getBalance();
+```
+
+- Checking a message based on id
+```apex
+    mb.viewMessage(MESSAGE_ID);
+```
+
+
