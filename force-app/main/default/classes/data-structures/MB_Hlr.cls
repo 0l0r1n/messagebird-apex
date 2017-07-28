@@ -1,4 +1,5 @@
 public class MB_Hlr {
+
     public String id { get; }
     public String href { get; }
     protected Long msisdn { get; }
@@ -8,4 +9,5 @@ public class MB_Hlr {
     public String createdDatetime { get; }
     public String statusDatetime { get; }
     public MB_HlrDetails details { get; }
+    
 }

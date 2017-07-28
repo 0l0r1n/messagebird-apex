@@ -97,10 +97,6 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     // TODO: Contacts
 
     // TODO: Groups
-
-    // TODO: SMPP
-
-    // TODO: Mail to SMS
     
     public class MessageBirdException extends Exception {}
     public class IllegalArgumentException extends Exception {}

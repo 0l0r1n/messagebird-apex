@@ -18,7 +18,7 @@ public with sharing class Util_Env {
         return getValue(key + (getIsSandbox() ? '_sbx' : '_prd' ));
     }
 
-    public static Boolean getIsSandbox(){
+    public static Boolean getIsSandbox() {
         if (isSandbox == null)
 		    isSandbox = [SELECT IsSandbox FROM Organization limit 1].IsSandbox;
         return isSandbox;
