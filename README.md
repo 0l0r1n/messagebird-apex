@@ -2,7 +2,7 @@ MessageBird Apex Library
 
 MessageBird Wrapper Library for Salesforce, built using SFDX
 
-## Please note that this is not an official supported version by MessageBird
+## Please note that this library is not an official supported version by MessageBird
 
 This is just me on my free time, having some fun :)
 Heavily based on MessageBird's own java library - https://github.com/messagebird/java-rest-api
@@ -39,10 +39,10 @@ Then you will be able to use ant (or any automated tool) to run your deployment
 
 This library current supports:
 
-- Message API
-- Voice Message API
-- Balance API
-- HLR API
+- SMS Message
+- Voice Message
+- Balance
+- HLR
 
 MessageBird has an awesome API, here are a few examples of what you can do:
 

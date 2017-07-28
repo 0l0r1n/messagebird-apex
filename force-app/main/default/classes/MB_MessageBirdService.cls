@@ -10,7 +10,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
     public MB_MessageResponse sendMessage(MB_Message message) {
-        return (MB_MessageResponse)JSON.deserialize(doCallout(MESSAGESPATH, JSON.serialize(message), 'POST'), MB_MessageResponse.class);
+        return (MB_MessageResponse)JSON.deserialize(sendPayload(MESSAGESPATH, JSON.serialize(message)), MB_MessageResponse.class);
     }
 
     public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients) {
@@ -38,12 +38,12 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
      public void deleteMessage(String id) {
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-        doDelete(MESSAGESPATH + '/' + id);
+        deleteById(MESSAGESPATH, id);
     }
 
      public MB_MessageResponse viewMessage(String id) {
          if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-         return (MB_MessageResponse) JSON.deserialize(doCallout(MESSAGESPATH + '/' + id, null, 'GET'), MB_MessageResponse.class);
+         return (MB_MessageResponse) JSON.deserialize(requestById(MESSAGESPATH, id), MB_MessageResponse.class);
     }
 
     public MB_MessageList listMessages(Integer offset, Integer limit_x) {
@@ -57,7 +57,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     }
     
     public MB_Balance getBalance(){
-        return (MB_Balance)JSON.deserialize(doCallout(BALANCEPATH, null, 'GET'), MB_Balance.class);
+        return (MB_Balance)JSON.deserialize(requestById(BALANCEPATH, ''), MB_Balance.class);
     }
 
     public MB_Hlr getRequestHlr(Long msisdn, String reference) {
@@ -67,16 +67,16 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('msisdn', msisdn);
         payload.put('reference', reference);
-        return (MB_Hlr)JSON.deserialize(doCallout(HLRPATH, JSON.serialize(payload), 'POST'), MB_Hlr.class);
+        return (MB_Hlr)JSON.deserialize(sendPayload(HLRPATH, JSON.serialize(payload)), MB_Hlr.class);
     }
 
     public MB_Hlr getViewHlr(String hlrId) {
         if (hlrId == null) throw new IllegalArgumentException(Label.MB_HlrIdMustBeSpecified);
-        return (MB_Hlr)JSON.deserialize(doCallout(HLRPATH + '/' + hlrId, null, 'GET'), MB_Hlr.class);
+        return (MB_Hlr)JSON.deserialize(requestById(HLRPATH, hlrId), MB_Hlr.class);
     }
 
     public MB_VoiceMessageResponse sendVoiceMessage(MB_VoiceMessage voiceMessage){
-        return (MB_VoiceMessageResponse)JSON.deserialize(doCallout(VOICEMESSAGESPATH, JSON.serialize(voiceMessage), 'POST'), MB_VoiceMessageResponse.class);
+        return (MB_VoiceMessageResponse)JSON.deserialize(sendPayload(VOICEMESSAGESPATH, JSON.serialize(voiceMessage)), MB_VoiceMessageResponse.class);
     }
    
     public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients){
@@ -91,10 +91,15 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
     public void deleteVoiceMessage(String id){
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-        doDelete(VOICEMESSAGESPATH + '/' + id);
+        deleteById(VOICEMESSAGESPATH, id);
     }
 
-    // TODO: Voice Messaging
+    public MB_VoiceMessageResponse VoiceMessageResponse(String id){
+        if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
+        return (MB_VoiceMessageResponse) JSON.deserialize(requestById(MESSAGESPATH, id), MB_MessageResponse.class);
+    }
+
+
 
     // TODO: Chat
 
@@ -103,8 +108,17 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     // TODO: Contacts
 
     // TODO: Groups
-    private static void doDelete(String path){
-        doCallout(path, null, 'DELETE');
+
+    private static String requestById(String path, String id){
+        return doCallout(path + '/' + id, null, 'GET');
+    }
+
+    private static void deleteById(String path, String id){
+        doCallout(path + '/' + id, null, 'DELETE');
+    }
+
+    private static String sendPayload(String path, String payload){
+        return doCallout(path, payload, 'POST');
     }
 
     private static String doCallout(String path, String body, String method) {
