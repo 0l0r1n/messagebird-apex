@@ -38,7 +38,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
      public void deleteMessage(String id) {
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-        doCallout(MESSAGESPATH + '/' + id, null, 'DELETE');
+        doDelete(MESSAGESPATH + '/' + id);
     }
 
      public MB_MessageResponse viewMessage(String id) {
@@ -75,17 +75,23 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_Hlr)JSON.deserialize(doCallout(HLRPATH + '/' + hlrId, null, 'GET'), MB_Hlr.class);
     }
 
-    public static String doCallout(String path, String body, String method) {
-        Http http = new Http();
-        HttpRequest request = new HttpRequest();
-        request.setMethod(method);
-        request.setEndpoint(ENDPOINT + path);
-        request.setHeader('Content-Type', 'application/json');
-        request.setHeader('Authorization','AccessKey ' + Util_Env.getValue('MB_AccessKey'));
-        if (body != null) request.setBody(body);
-        HttpResponse response = http.send(request);
-        System.debug(response.getBody());
-        return response.getBody();
+    public MB_VoiceMessageResponse sendVoiceMessage(MB_VoiceMessage voiceMessage){
+        return (MB_VoiceMessageResponse)JSON.deserialize(doCallout(VOICEMESSAGESPATH, JSON.serialize(voiceMessage), 'POST'), MB_VoiceMessageResponse.class);
+    }
+   
+    public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients){
+        return sendVoiceMessage(new MB_VoiceMessage(body, recipients));
+    }
+
+    public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients, String reference){
+        MB_VoiceMessage voiceMessage = new MB_VoiceMessage(body, recipients);
+        voiceMessage.reference = reference;
+        return sendVoiceMessage(voiceMessage);
+    }
+
+    public void deleteVoiceMessage(String id){
+        if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
+        doDelete(VOICEMESSAGESPATH + '/' + id);
     }
 
     // TODO: Voice Messaging
@@ -97,6 +103,22 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     // TODO: Contacts
 
     // TODO: Groups
+    private static void doDelete(String path){
+        doCallout(path, null, 'DELETE');
+    }
+
+    private static String doCallout(String path, String body, String method) {
+        Http http = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setMethod(method);
+        request.setEndpoint(ENDPOINT + path);
+        request.setHeader('Content-Type', 'application/json');
+        request.setHeader('Authorization','AccessKey ' + Util_Env.getValue('MB_AccessKey'));
+        if (body != null) request.setBody(body);
+        HttpResponse response = http.send(request);
+        System.debug(response.getBody());
+        return response.getBody();
+    }
     
     public class MessageBirdException extends Exception {}
     public class IllegalArgumentException extends Exception {}
