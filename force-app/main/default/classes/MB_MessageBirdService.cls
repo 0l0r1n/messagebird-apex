@@ -153,8 +153,8 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
     private static Object requestList(String path, Integer offset, Integer limit_x, Type t){
         Map<String, Object> queryParams = new Map<String, Object>();
-        queryParams.put('limit', limit_x);
-        queryParams.put('offset', offset);
+        if (limit_x != null) queryParams.put('limit', limit_x);
+        if (offset != null) queryParams.put('offset', offset);
         String response = doCallout(path + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
         return JSON.deserialize(response.replace('limit', 'limit_x'), t);
     }
