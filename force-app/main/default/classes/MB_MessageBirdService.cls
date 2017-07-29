@@ -104,25 +104,25 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     public MB_Verify sendVerifyToken(MB_VerifyRequest verifyRequest) {
         if (verifyRequest == null)
             throw new IllegalArgumentException(Label.MB_VerifyRequestCannotBeNull);
-        if (verifyRequest.recipient == null || verifyRequest.recipient.isEmpty())
+        if (verifyRequest.recipient == null || verifyRequest.recipient.length() == 0)
             throw new IllegalArgumentException(Label.MB_RecipientMustBeProvidedForVerify);
-        return sendPayload(VERIFYPATH, JSON.serialize(verifyRequest));
+        return (MB_Verify) JSON.deserialize(sendPayload(VERIFYPATH, JSON.serialize(verifyRequest)), MB_Verify.class);
     }
 
     public MB_Verify sendVerifyToken(String recipient) {
-        if (recipient == null || recipient.isEmpty())
+        if (recipient == null || recipient.length() == 0)
             throw new IllegalArgumentException(Label.MB_RecipientMustBeProvidedForVerify);
         MB_VerifyRequest verifyRequest = new MB_VerifyRequest(recipient);
         return sendVerifyToken(verifyRequest);
     }
 
     public MB_Verify verifyToken(String id, String token) {
-        if (id == null || id.isEmpty())
+        if (id == null || id.length() == 0)
             throw new IllegalArgumentException(Label.MB_IdCannotBeEmptyForVerify);
-        else if (token == null || token.isEmpty())
+        else if (token == null || token.length() == 0)
             throw new IllegalArgumentException(Label.MB_TokenCannotBeEmptyForVerify);
         Map<String, Object> params = new Map<String, Object>{ 'token' => token };
-        return (MB_Verify) JSON.deserialize(requestById(path, id, params))
+        return (MB_Verify) JSON.deserialize(requestById(VERIFYPATH, id, params), MB_Verify.class);
     }
 
     // TODO: Lookup
@@ -132,12 +132,13 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     // TODO: Groups
 
     // TODO: Chat
+
     private static String requestById(String path, String id){
         return doCallout(path + '/' + id, null, 'GET');
     }
 
     private static String requestById(String path, String id, Map<String, Object> params){
-        doCallout(path + '/' + id + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
+        return doCallout(path + '/' + id + '?' + Util_Http.buildQueryParams(params), null, 'GET');
     }
 
     private static void deleteById(String path, String id){
