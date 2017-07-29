@@ -1,11 +1,9 @@
 public class MB_Language {
 
-    public enum languague_value { 
-        NL_NL, DE_DE, EN_GB, EN_US, ES_ES, 
-        FR_FR, RU_RU, ZH_CN, EN_AU, ES_MX, 
-        ES_US, FR_CA, IS_IS, IT_IT, JA_JP,
-        KO_KR, PL_PL, PT_BR, RO_RO 
-    }
+    public static final Set<String> valueSet = new Set<String> {
+         'nl-nl', 'de-de', 'en-gb', 'en-us', 'es-es', 'fr-fr',
+         'ru-ru', 'zh-cn', 'en-au', 'es-mx', 'es-us', 'fr-ca',
+         'is-is', 'it-it', 'ja-jp', 'ko-kr', 'pl-pl', 'pt-br', 'ro-ro'
+    };
 
-    
 }
