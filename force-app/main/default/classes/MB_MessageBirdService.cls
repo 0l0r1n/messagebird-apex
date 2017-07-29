@@ -52,7 +52,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_MessageList) JSON.deserialize(requestList(MESSAGESPATH, offset, limit_x), MB_MessageList.class);
     }
     
-    public MB_Balance getBalance(){
+    public MB_Balance getBalance() {
         return (MB_Balance)JSON.deserialize(requestById(BALANCEPATH, ''), MB_Balance.class);
     }
 
@@ -71,37 +71,59 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_Hlr)JSON.deserialize(requestById(HLRPATH, hlrId), MB_Hlr.class);
     }
 
-    public MB_VoiceMessageResponse sendVoiceMessage(MB_VoiceMessage voiceMessage){
+    public MB_VoiceMessageResponse sendVoiceMessage(MB_VoiceMessage voiceMessage) {
         return (MB_VoiceMessageResponse)JSON.deserialize(sendPayload(VOICEMESSAGESPATH, JSON.serialize(voiceMessage)), MB_VoiceMessageResponse.class);
     }
    
-    public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients){
+    public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients) {
         return sendVoiceMessage(new MB_VoiceMessage(body, recipients));
     }
 
-    public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients, String reference){
+    public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients, String reference) {
         MB_VoiceMessage voiceMessage = new MB_VoiceMessage(body, recipients);
         voiceMessage.reference = reference;
         return sendVoiceMessage(voiceMessage);
     }
 
-    public void deleteVoiceMessage(String id){
+    public void deleteVoiceMessage(String id) {
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
         deleteById(VOICEMESSAGESPATH, id);
     }
 
-    public MB_VoiceMessageResponse viewVoiceMessage(String id){
+    public MB_VoiceMessageResponse viewVoiceMessage(String id) {
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
         return (MB_VoiceMessageResponse) JSON.deserialize(requestById(MESSAGESPATH, id), MB_MessageResponse.class);
     }
 
-    public MB_MessageList listVoiceMessages(Integer offset, Integer limit_x){
+    public MB_MessageList listVoiceMessages(Integer offset, Integer limit_x) {
         if (offset != null && offset < 0) throw new IllegalArgumentException(Label.MB_OffsetMustBeGtZero);
         if (limit_x != null && limit_x < 0) throw new IllegalArgumentException(Label.MB_LimitMustBeGtZero);
         return (MB_MessageList) JSON.deserialize(requestList(VOICEMESSAGESPATH, offset, limit_x), MB_MessageList.class);
     }
 
-    // TODO: Chat
+    public MB_Verify sendVerifyToken(MB_VerifyRequest verifyRequest) {
+        if (verifyRequest == null)
+            throw new IllegalArgumentException(Label.MB_VerifyRequestCannotBeNull);
+        if (verifyRequest.recipient == null || verifyRequest.recipient.isEmpty())
+            throw new IllegalArgumentException(Label.MB_RecipientMustBeProvidedForVerify);
+        return sendPayload(VERIFYPATH, JSON.serialize(verifyRequest));
+    }
+
+    public MB_Verify sendVerifyToken(String recipient) {
+        if (recipient == null || recipient.isEmpty())
+            throw new IllegalArgumentException(Label.MB_RecipientMustBeProvidedForVerify);
+        MB_VerifyRequest verifyRequest = new MB_VerifyRequest(recipient);
+        return sendVerifyToken(verifyRequest);
+    }
+
+    public MB_Verify verifyToken(String id, String token) {
+        if (id == null || id.isEmpty())
+            throw new IllegalArgumentException(Label.MB_IdCannotBeEmptyForVerify);
+        else if (token == null || token.isEmpty())
+            throw new IllegalArgumentException(Label.MB_TokenCannotBeEmptyForVerify);
+        Map<String, Object> params = new Map<String, Object>{ 'token' => token };
+        return (MB_Verify) JSON.deserialize(requestById(path, id, params))
+    }
 
     // TODO: Lookup
 
@@ -109,8 +131,13 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
     // TODO: Groups
 
+    // TODO: Chat
     private static String requestById(String path, String id){
         return doCallout(path + '/' + id, null, 'GET');
+    }
+
+    private static String requestById(String path, String id, Map<String, Object> params){
+        doCallout(path + '/' + id + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
     }
 
     private static void deleteById(String path, String id){
