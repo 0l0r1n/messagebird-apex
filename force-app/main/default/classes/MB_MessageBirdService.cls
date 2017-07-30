@@ -1,6 +1,5 @@
 public class MB_MessageBirdService implements MB_IMessageBirdService {
     
-    private static final String ENDPOINT = 'https://rest.messagebird.com';
     private static final String BALANCEPATH = '/balance';
     private static final String HLRPATH = '/hlr';
     private static final String MESSAGESPATH = '/messages';
@@ -131,7 +130,9 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_Verify) MB_MessageBirdWebService.requestById(VERIFYPATH, id, MB_Verify.class);
     }
 
-    // TODO: Lookup
+    public MB_Lookup viewLookup(MB_Lookup){
+        return new MB_Lookup();
+    }
 
     // TODO: Contacts
 
