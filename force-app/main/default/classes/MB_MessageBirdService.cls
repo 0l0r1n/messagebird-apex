@@ -10,7 +10,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
     public MB_MessageResponse sendMessage(MB_Message message) {
-        return (MB_MessageResponse) sendPayload(MESSAGESPATH, JSON.serialize(message), MB_MessageResponse.class);
+        return (MB_MessageResponse) MB_MessageBirdWebService.sendPayload(MESSAGESPATH, JSON.serialize(message), MB_MessageResponse.class);
     }
 
     public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients) {
@@ -43,17 +43,17 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
      public MB_MessageResponse viewMessage(String id) {
          if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-         return (MB_MessageResponse) requestById(MESSAGESPATH, id, MB_MessageResponse.class);
+         return (MB_MessageResponse) MB_MessageBirdWebService.requestById(MESSAGESPATH, id, MB_MessageResponse.class);
     }
 
     public MB_MessageList listMessages(Integer offset, Integer limit_x) {
         if (offset != null && offset < 0) throw new IllegalArgumentException(Label.MB_OffsetMustBeGtZero);
         if (limit_x != null && limit_x < 0) throw new IllegalArgumentException(Label.MB_LimitMustBeGtZero);
-        return (MB_MessageList) requestList(MESSAGESPATH, offset, limit_x, MB_MessageList.class);
+        return (MB_MessageList) MB_MessageBirdWebService.requestList(MESSAGESPATH, offset, limit_x, MB_MessageList.class);
     }
     
     public MB_Balance getBalance() {
-        return (MB_Balance) requestById(BALANCEPATH, '', MB_Balance.class);
+        return (MB_Balance) MB_MessageBirdWebService.requestById(BALANCEPATH, '', MB_Balance.class);
     }
 
     public MB_Hlr getRequestHlr(Long msisdn, String reference) {
@@ -63,16 +63,16 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('msisdn', msisdn);
         payload.put('reference', reference);
-        return (MB_Hlr) sendPayload(HLRPATH, JSON.serialize(payload), MB_Hlr.class);
+        return (MB_Hlr) MB_MessageBirdWebService.sendPayload(HLRPATH, JSON.serialize(payload), MB_Hlr.class);
     }
 
     public MB_Hlr getViewHlr(String hlrId) {
         if (hlrId == null) throw new IllegalArgumentException(Label.MB_HlrIdMustBeSpecified);
-        return (MB_Hlr) requestById(HLRPATH, hlrId, MB_Hlr.class);
+        return (MB_Hlr) MB_MessageBirdWebService.requestById(HLRPATH, hlrId, MB_Hlr.class);
     }
 
     public MB_VoiceMessageResponse sendVoiceMessage(MB_VoiceMessage voiceMessage) {
-        return (MB_VoiceMessageResponse) sendPayload(VOICEMESSAGESPATH, JSON.serialize(voiceMessage), MB_VoiceMessageResponse.class);
+        return (MB_VoiceMessageResponse) MB_MessageBirdWebService.sendPayload(VOICEMESSAGESPATH, JSON.serialize(voiceMessage), MB_VoiceMessageResponse.class);
     }
    
     public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients) {
@@ -87,18 +87,18 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
     public void deleteVoiceMessage(String id) {
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-        deleteById(VOICEMESSAGESPATH, id);
+        MB_MessageBirdWebService.deleteById(VOICEMESSAGESPATH, id);
     }
 
     public MB_VoiceMessageResponse viewVoiceMessage(String id) {
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-        return (MB_VoiceMessageResponse) requestById(MESSAGESPATH, id, MB_MessageResponse.class);
+        return (MB_VoiceMessageResponse) MB_MessageBirdWebService.requestById(MESSAGESPATH, id, MB_MessageResponse.class);
     }
 
     public MB_MessageList listVoiceMessages(Integer offset, Integer limit_x) {
         if (offset != null && offset < 0) throw new IllegalArgumentException(Label.MB_OffsetMustBeGtZero);
         if (limit_x != null && limit_x < 0) throw new IllegalArgumentException(Label.MB_LimitMustBeGtZero);
-        return (MB_MessageList) requestList(VOICEMESSAGESPATH, offset, limit_x, MB_MessageList.class);
+        return (MB_MessageList) MB_MessageBirdWebService.requestList(VOICEMESSAGESPATH, offset, limit_x, MB_MessageList.class);
     }
 
     public MB_Verify sendVerifyToken(MB_VerifyRequest verifyRequest) {
@@ -106,7 +106,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
             throw new IllegalArgumentException(Label.MB_VerifyRequestCannotBeNull);
         if (verifyRequest.recipient == null || verifyRequest.recipient.length() == 0)
             throw new IllegalArgumentException(Label.MB_RecipientMustBeProvidedForVerify);
-        return (MB_Verify) sendPayload(VERIFYPATH, JSON.serialize(verifyRequest), MB_Verify.class);
+        return (MB_Verify) MB_MessageBirdWebService.sendPayload(VERIFYPATH, JSON.serialize(verifyRequest), MB_Verify.class);
     }
 
     public MB_Verify sendVerifyToken(String recipient) {
@@ -122,13 +122,13 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         else if (token == null || token.length() == 0)
             throw new IllegalArgumentException(Label.MB_TokenCannotBeEmptyForVerify);
         Map<String, Object> params = new Map<String, Object>{ 'token' => token };
-        return (MB_Verify) requestById(VERIFYPATH, id, params, MB_Verify.class);
+        return (MB_Verify) MB_MessageBirdWebService.requestById(VERIFYPATH, id, params, MB_Verify.class);
     }
 
     public MB_Verify getVerifyObject(String id) {
         if (id == null || id.length() == 0)
             throw new IllegalArgumentException(Label.MB_IdMustBeProvidedForVerify);
-        return (MB_Verify) requestById(VERIFYPATH, id, MB_Verify.class);
+        return (MB_Verify) MB_MessageBirdWebService.requestById(VERIFYPATH, id, MB_Verify.class);
     }
 
     // TODO: Lookup
@@ -138,43 +138,6 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     // TODO: Groups
 
     // TODO: Chat
-
-    private static Object requestById(String path, String id, Type t){
-        return JSON.deserialize(doCallout(path + '/' + id, null, 'GET'), t);
-    }
-
-    private static Object requestById(String path, String id, Map<String, Object> params, Type t){
-        return JSON.deserialize(doCallout(path + '/' + id + '?' + Util_Http.buildQueryParams(params), null, 'GET'), t);
-    }
-
-    private static void deleteById(String path, String id){
-        doCallout(path + '/' + id, null, 'DELETE');
-    }
-
-    private static Object requestList(String path, Integer offset, Integer limit_x, Type t){
-        Map<String, Object> queryParams = new Map<String, Object>();
-        if (limit_x != null) queryParams.put('limit', limit_x);
-        if (offset != null) queryParams.put('offset', offset);
-        String response = doCallout(path + '?' + Util_Http.buildQueryParams(queryParams), null, 'GET');
-        return JSON.deserialize(response.replace('limit', 'limit_x'), t);
-    }
-
-    private static Object sendPayload(String path, String payload, Type t){
-        return JSON.deserialize(doCallout(path, payload, 'POST'), t);
-    }
-
-    private static String doCallout(String path, String body, String method) {
-        Http http = new Http();
-        HttpRequest request = new HttpRequest();
-        request.setMethod(method);
-        request.setEndpoint(ENDPOINT + path);
-        request.setHeader('Content-Type', 'application/json');
-        request.setHeader('Authorization','AccessKey ' + Util_Env.getValue('MB_AccessKey'));
-        if (body != null) request.setBody(body);
-        HttpResponse response = http.send(request);
-        System.debug(response.getBody());
-        return response.getBody();
-    }
     
     public class MessageBirdException extends Exception {}
     public class IllegalArgumentException extends Exception {}
