@@ -130,7 +130,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_Verify) MB_MessageBirdWebService.requestById(VERIFYPATH, id, MB_Verify.class);
     }
 
-    public MB_Lookup viewLookup(MB_Lookup){
+    public MB_Lookup viewLookup(MB_Lookup lookup){
         return new MB_Lookup();
     }
 

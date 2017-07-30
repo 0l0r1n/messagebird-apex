@@ -1,5 +1,7 @@
-public with sharing class MB_LookupHlr {
-    public MB_LookupHlr() {
+public class MB_LookupHlr {
 
-    }
+    public String countryCode { get; set; }
+    public String reference { get; set; }
+    public Long msisdn { get; set; }
+    
 }
