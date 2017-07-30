@@ -130,7 +130,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_Verify) MB_MessageBirdWebService.requestById(VERIFYPATH, id, MB_Verify.class);
     }
 
-    public MB_Lookup viewLookup(MB_Lookup lookup){
+    public MB_Lookup viewLookup(MB_Lookup lookup) {
         if (lookup.phoneNumber == null) 
             throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
     
@@ -141,11 +141,15 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_Lookup) MB_MessageBirdWebService.requestByID(LOOKUPPATH, String.valueOf(lookup.phoneNumber), params, MB_Lookup.class);
     }
 
-    public MB_Lookup viewLookup(Long phoneNumber){
+    public MB_Lookup viewLookup(Long phoneNumber) {
         if (phoneNumber == null) 
             throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
         
         return viewLookup(new MB_Lookup(phoneNumber));
+    }
+
+    public MB_LookupHlr requestLookupHlr(MB_LookupHlr lookupHlr) {
+        return new MB_LookupHlr();
     }
 
     // TODO: Contacts
