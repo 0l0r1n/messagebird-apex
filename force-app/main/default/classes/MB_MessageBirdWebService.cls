@@ -1,5 +1,7 @@
 public with sharing class MB_MessageBirdWebService {
 
+    private static final String ENDPOINT = 'https://rest.messagebird.com';
+
     public static Object requestById(String path, String id, Type t){
         return JSON.deserialize(doCallout(path + '/' + id, null, 'GET'), t);
     }

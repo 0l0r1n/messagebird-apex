@@ -38,7 +38,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
      public void deleteMessage(String id) {
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-        deleteById(MESSAGESPATH, id);
+        MB_MessageBirdWebService.deleteById(MESSAGESPATH, id);
     }
 
      public MB_MessageResponse viewMessage(String id) {
