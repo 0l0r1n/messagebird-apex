@@ -131,7 +131,21 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     }
 
     public MB_Lookup viewLookup(MB_Lookup lookup){
-        return new MB_Lookup();
+        if (lookup.phoneNumber == null) 
+            throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
+    
+        Map<String, Object> params = new Map<String, Object>();
+        if (lookup.countryCode != null) 
+            params.put('countryCode', lookup.countryCode);
+        
+        return (MB_Lookup) MB_MessageBirdWebService.requestByID(LOOKUPPATH, String.valueOf(lookup.phoneNumber), params, MB_Lookup.class);
+    }
+
+    public MB_Lookup viewLookup(Long phoneNumber){
+        if (phoneNumber == null) 
+            throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
+        
+        return viewLookup(new MB_Lookup(phoneNumber));
     }
 
     // TODO: Contacts

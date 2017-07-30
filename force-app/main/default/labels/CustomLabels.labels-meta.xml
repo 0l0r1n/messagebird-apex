@@ -15,6 +15,27 @@
         <value>hlrId must be specified.</value>
     </labels>
     <labels>
+        <fullName>MB_IdCannotBeEmptyForVerify</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_IdCannotBeEmptyForVerify</shortDescription>
+        <value>ID cannot be empty for verify</value>
+    </labels>
+    <labels>
+        <fullName>MB_IdMustBeProvidedForVerify</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_IdMustBeProvidedForVerify</shortDescription>
+        <value>ID cannot be empty for verify.</value>
+    </labels>
+    <labels>
+        <fullName>MB_InvalidLanguage</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_InvalidLanguage</shortDescription>
+        <value>Invalid language.</value>
+    </labels>
+    <labels>
         <fullName>MB_InvalidValidity</fullName>
         <language>nl_NL</language>
         <protected>true</protected>
@@ -57,6 +78,20 @@
         <value>Originator must be specified</value>
     </labels>
     <labels>
+        <fullName>MB_PhoneNumberMustBeSpecified</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_PhoneNumberMustBeSpecified</shortDescription>
+        <value>Phone number must be specified.</value>
+    </labels>
+    <labels>
+        <fullName>MB_RecipientMustBeProvidedForVerify</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_RecipientMustBeProvidedForVerify</shortDescription>
+        <value>Recipient cannot be empty for verify.</value>
+    </labels>
+    <labels>
         <fullName>MB_RecipientsMustBeSpecified</fullName>
         <language>nl_NL</language>
         <protected>true</protected>
@@ -76,5 +111,19 @@
         <protected>true</protected>
         <shortDescription>MB_RepeatCannotBeLtZero</shortDescription>
         <value>Repeat cannot be &lt; 1.</value>
+    </labels>
+    <labels>
+        <fullName>MB_TokenCannotBeEmptyForVerify</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_TokenCannotBeEmptyForVerify</shortDescription>
+        <value>Token cannot be empty for verify.</value>
+    </labels>
+    <labels>
+        <fullName>MB_VerifyRequestCannotBeNull</fullName>
+        <language>nl_NL</language>
+        <protected>true</protected>
+        <shortDescription>MB_VerifyRequestCannotBeNull</shortDescription>
+        <value>Verify request cannot be null.</value>
     </labels>
 </CustomLabels>
