@@ -22,8 +22,8 @@ public with sharing class MB_MessageBirdWebService {
         return JSON.deserialize(response.replace('limit', 'limit_x'), t);
     }
 
-    public static Object sendPayload(String path, String payload, Type t){
-        return JSON.deserialize(doCallout(path, payload, 'POST'), t);
+    public static Object sendPayload(String path, Object payload, Type t){
+        return JSON.deserialize(doCallout(path, JSON.serialize(payload), 'POST'), t);
     }
 
     private static String doCallout(String path, String body, String method) {

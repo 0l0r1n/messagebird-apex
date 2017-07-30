@@ -9,7 +9,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
 
     public MB_MessageResponse sendMessage(MB_Message message) {
-        return (MB_MessageResponse) MB_MessageBirdWebService.sendPayload(MESSAGESPATH, JSON.serialize(message), MB_MessageResponse.class);
+        return (MB_MessageResponse) MB_MessageBirdWebService.sendPayload(MESSAGESPATH, message, MB_MessageResponse.class);
     }
 
     public MB_MessageResponse sendMessage(String originator, String body, List<Long> recipients) {
@@ -62,7 +62,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         Map<String, Object> payload = new Map<String, Object>();
         payload.put('msisdn', msisdn);
         payload.put('reference', reference);
-        return (MB_Hlr) MB_MessageBirdWebService.sendPayload(HLRPATH, JSON.serialize(payload), MB_Hlr.class);
+        return (MB_Hlr) MB_MessageBirdWebService.sendPayload(HLRPATH, payload, MB_Hlr.class);
     }
 
     public MB_Hlr getViewHlr(String hlrId) {
@@ -71,7 +71,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     }
 
     public MB_VoiceMessageResponse sendVoiceMessage(MB_VoiceMessage voiceMessage) {
-        return (MB_VoiceMessageResponse) MB_MessageBirdWebService.sendPayload(VOICEMESSAGESPATH, JSON.serialize(voiceMessage), MB_VoiceMessageResponse.class);
+        return (MB_VoiceMessageResponse) MB_MessageBirdWebService.sendPayload(VOICEMESSAGESPATH, voiceMessage, MB_VoiceMessageResponse.class);
     }
    
     public MB_VoiceMessageResponse sendVoiceMessage(String body, String recipients) {
@@ -105,7 +105,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
             throw new IllegalArgumentException(Label.MB_VerifyRequestCannotBeNull);
         if (verifyRequest.recipient == null || verifyRequest.recipient.length() == 0)
             throw new IllegalArgumentException(Label.MB_RecipientMustBeProvidedForVerify);
-        return (MB_Verify) MB_MessageBirdWebService.sendPayload(VERIFYPATH, JSON.serialize(verifyRequest), MB_Verify.class);
+        return (MB_Verify) MB_MessageBirdWebService.sendPayload(VERIFYPATH, verifyRequest, MB_Verify.class);
     }
 
     public MB_Verify sendVerifyToken(String recipient) {
@@ -149,7 +149,18 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     }
 
     public MB_LookupHlr requestLookupHlr(MB_LookupHlr lookupHlr) {
-        return new MB_LookupHlr();
+         if (lookupHlr.msisdn == null) 
+            throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
+        if (lookupHlr.reference == null) {
+            throw new IllegalArgumentException(Label.MB_ReferenceMustBeSpecified);
+        }
+        Map<String, Object> payload = new Map<String, Object>();
+        payload.put('phoneNumber', lookupHlr.msisdn);
+        payload.put('reference', lookupHlr.reference);
+        if (lookupHlr.countryCode != null) {
+            payload.put('countryCode', lookupHlr.countryCode);
+        }
+        return (MB_LookupHlr) MB_MessageBirdWebService.sendPayLoad(String.format(LOOKUPHLRPATH, new List<String> { String.valueOf(lookupHlr.msisdn) }), payload, MB_LookupHlr.class);
     }
 
     // TODO: Contacts
