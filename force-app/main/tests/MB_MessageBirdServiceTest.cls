@@ -59,6 +59,38 @@ private class MB_MessageBirdServiceTest {
         MB_Hlr hlr = new MB_MessageBirdService().getViewHlr('0');
     }
 
+    static testmethod void test_sendVoiceMessage_withBaseArguments(){
+        Test.setMock(HttpCalloutMock.class, new MB_VoiceMessageResponseMock());
+        new MB_MessageBirdService().sendVoiceMessage(new MB_VoiceMessage('4815163245', 'hi there!'));
+    }
+
+    static testmethod void test_sendVoiceMessage_withOtherArguments(){
+        Test.setMock(HttpCalloutMock.class, new MB_VoiceMessageResponseMock());
+        new MB_MessageBirdService().sendVoiceMessage('4815163245', 'hi there!');
+    }
+
+    static testmethod void test_sendVoiceMessage_withMoreArguments(){
+        Test.setMock(HttpCalloutMock.class, new MB_VoiceMessageResponseMock());
+        new MB_MessageBirdService().sendVoiceMessage('4815163245', 'hi there!', 'reference');
+    }
+
+    static testmethod void test_deleteVoiceMessage(){
+        MB_EmptyResponse response = new MB_EmptyResponse();
+        Test.setMock(HttpCalloutMock.class, response);
+        new MB_MessageBirdService().deleteVoiceMessage('123456');
+        System.assertEquals(1, response.counter);
+    }
+
+    static testmethod void test_viewVoiceMessage(){
+        Test.setMock(HttpCalloutMock.class, new MB_VoiceMessageResponseMock());
+        new MB_MessageBirdService().viewVoiceMessage('4815163245');
+    }
+
+    static testmethod void test_getListVoiceMessages(){
+        Test.setMock(HttpCalloutMock.class, new MB_MessageListResponseMock());
+        MB_MessageList listResponse = new MB_MessageBirdService().listVoiceMessages(0, 0);
+    }
+
     static testmethod void test_getBalance(){
         Test.setMock(HttpCalloutMock.class, new MB_GetBalanceResponseMock());
         MB_Balance balance = new MB_MessageBirdService().getBalance();
