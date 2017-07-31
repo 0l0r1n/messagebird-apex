@@ -163,6 +163,17 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_LookupHlr) MB_MessageBirdWebService.sendPayLoad(String.format(LOOKUPHLRPATH, new List<String> { String.valueOf(lookupHlr.msisdn) }), payload, MB_LookupHlr.class);
     }
 
+    public MB_LookupHlr viewLookupHlr(MB_LookupHlr lookupHlr) {
+        if (lookupHlr.msisdn == null) {
+            throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
+        }
+        Map<String, Object> params = new Map<String, Object>();
+        if (lookupHlr.countryCode != null) 
+            params.put('countryCode', lookupHlr.countryCode);
+        
+        return (MB_LookupHlr) MB_MessageBirdWebService.requestByID(String.format(LOOKUPHLRPATH, new List<String> { String.valueOf(lookupHlr.msisdn) }), '', params, MB_LookupHlr.class);
+    }
+
     // TODO: Contacts
 
     // TODO: Groups

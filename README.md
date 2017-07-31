@@ -43,6 +43,7 @@ This library current supports:
 - Voice Message
 - Balance
 - HLR
+- Lookup
 
 MessageBird has an awesome API, here are a few examples of what you can do:
 
