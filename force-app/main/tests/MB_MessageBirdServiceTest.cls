@@ -45,11 +45,19 @@ private class MB_MessageBirdServiceTest {
     }
 
     static testmethod void test_getListMessages(){
-        MB_MessageListResponseMock response = new MB_MessageListResponseMock();
-        Test.setMock(HttpCalloutMock.class, response);
+        Test.setMock(HttpCalloutMock.class, new MB_MessageListResponseMock());
         MB_MessageList listResponse = new MB_MessageBirdService().listMessages(0, 0);
     }
 
+    static testmethod void test_getRequestHlr(){
+        Test.setMock(HttpCalloutMock.class, new MB_HlrResponseMock());
+        MB_Hlr hlr = new MB_MessageBirdService().getRequestHlr(4815163245L,'0');
+    }
+
+    static testmethod void test_getViewHlr(){
+        Test.setMock(HttpCalloutMock.class, new MB_HlrResponseMock());
+        MB_Hlr hlr = new MB_MessageBirdService().getViewHlr('0');
+    }
 
     static testmethod void test_getBalance(){
         Test.setMock(HttpCalloutMock.class, new MB_GetBalanceResponseMock());
