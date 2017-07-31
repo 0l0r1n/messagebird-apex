@@ -7,6 +7,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String VERIFYPATH = '/verify';
     private static final String LOOKUPPATH = '/lookup';
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
+    private static final String CONTACTPATH = '/contacts'
 
     public MB_MessageResponse sendMessage(MB_Message message) {
         return (MB_MessageResponse) MB_MessageBirdWebService.sendPayload(MESSAGESPATH, message, MB_MessageResponse.class);
@@ -174,7 +175,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_LookupHlr) MB_MessageBirdWebService.requestByID(String.format(LOOKUPHLRPATH, new List<String> { String.valueOf(lookupHlr.msisdn) }), '', params, MB_LookupHlr.class);
     }
 
-    public MB_LookupHlr viewLookupHlr(Long phoneNumber){
+    public MB_LookupHlr viewLookupHlr(Long phoneNumber) {
         if (phonenumber == null) {
             throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
         }
@@ -183,7 +184,21 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return this.viewLookupHlr(lookupHlr);
     }
 
-    // TODO: Contacts
+    public MB_Contact viewContact() {
+        return null;
+    }
+
+    public void createContact() { 
+
+    }
+
+    public void updateContact() {
+
+    }
+
+    public void deleteContact() {
+        
+    }
 
     // TODO: Groups
 
