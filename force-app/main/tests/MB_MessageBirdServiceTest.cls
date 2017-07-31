@@ -61,7 +61,7 @@ private class MB_MessageBirdServiceTest {
 
     static testmethod void test_sendVoiceMessage_withBaseArguments(){
         Test.setMock(HttpCalloutMock.class, new MB_VoiceMessageResponseMock());
-        new MB_MessageBirdService().sendVoiceMessage(new MB_VoiceMessage('4815163245', 'hi there!'));
+        new MB_MessageBirdService().sendVoiceMessage(new MB_VoiceMessage('hi there!', '4815163245'));
     }
 
     static testmethod void test_sendVoiceMessage_withOtherArguments(){

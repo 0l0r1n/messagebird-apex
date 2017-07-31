@@ -93,7 +93,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
 
     public MB_VoiceMessageResponse viewVoiceMessage(String id) {
         if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
-        return (MB_VoiceMessageResponse) MB_MessageBirdWebService.requestById(MESSAGESPATH, id, MB_MessageResponse.class);
+        return (MB_VoiceMessageResponse) MB_MessageBirdWebService.requestById(MESSAGESPATH, id, MB_VoiceMessageResponse.class);
     }
 
     public MB_MessageList listVoiceMessages(Integer offset, Integer limit_x) {
