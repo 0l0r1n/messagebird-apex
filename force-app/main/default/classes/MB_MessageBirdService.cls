@@ -139,7 +139,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         if (lookup.countryCode != null) 
             params.put('countryCode', lookup.countryCode);
         
-        return (MB_Lookup) MB_MessageBirdWebService.requestByID(LOOKUPPATH, String.valueOf(lookup.phoneNumber), params, MB_Lookup.class);
+        return (MB_Lookup) MB_MessageBirdWebService.requestById(LOOKUPPATH, String.valueOf(lookup.phoneNumber), params, MB_Lookup.class);
     }
 
     public MB_Lookup viewLookup(Long phoneNumber) {
@@ -172,20 +172,32 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         if (lookupHlr.countryCode != null) 
             params.put('countryCode', lookupHlr.countryCode);
         
-        return (MB_LookupHlr) MB_MessageBirdWebService.requestByID(String.format(LOOKUPHLRPATH, new List<String> { String.valueOf(lookupHlr.msisdn) }), '', params, MB_LookupHlr.class);
+        return (MB_LookupHlr) MB_MessageBirdWebService.requestById(String.format(LOOKUPHLRPATH, new List<String> { String.valueOf(lookupHlr.msisdn) }), '', params, MB_LookupHlr.class);
     }
 
     public MB_LookupHlr viewLookupHlr(Long phoneNumber) {
-        if (phonenumber == null) {
+        if (phonenumber == null)
             throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
-        }
+        
         MB_LookupHlr lookupHlr = new MB_LookupHlr();
         lookupHlr.msisdn = phonenumber;
         return viewLookupHlr(lookupHlr);
     }
 
-    public MB_Contact viewContact() {
-        return null;
+    public MB_Contact viewContact(String id) {
+        if (id == null)
+            throw new IllegalArgumentException(Label.MB_IdMustBeProvidedforContact);
+        return (MB_Contact) MB_MessageBirdWebService.requestById(CONTACTPATH, id, MB_Contact.class);
+    }
+
+    public MB_Contact viewContact(MB_Contact contact) {
+        if (contact.id == null)
+            throw new IllegalArgumentException(Label.MB_IdMustBeProvidedforContact);
+        return (MB_Contact) MB_MessageBirdWebService.requestById(CONTACTPATH, contact.id, MB_Contact.class);
+    }
+
+    public MB_Contact viewContacts() {
+        return (MB_Contact) MB_MessageBirdWebService.requestById(CONTACTPATH, '', MB_Contact.class);
     }
 
     public MB_Contact createContact() { 
@@ -199,6 +211,8 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     public void deleteContact() {
         
     }
+
+    
 
     // TODO: Groups
 
