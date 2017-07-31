@@ -7,7 +7,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String VERIFYPATH = '/verify';
     private static final String LOOKUPPATH = '/lookup';
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
-    private static final String CONTACTPATH = '/contacts'
+    private static final String CONTACTPATH = '/contacts';
 
     public MB_MessageResponse sendMessage(MB_Message message) {
         return (MB_MessageResponse) MB_MessageBirdWebService.sendPayload(MESSAGESPATH, message, MB_MessageResponse.class);
@@ -179,21 +179,21 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         if (phonenumber == null) {
             throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
         }
-        final LookupHlr lookupHlr = new LookupHlr();
-        lookupHlr.setPhoneNumber(phonenumber);
-        return this.viewLookupHlr(lookupHlr);
+        MB_LookupHlr lookupHlr = new MB_LookupHlr();
+        lookupHlr.msisdn = phonenumber;
+        return viewLookupHlr(lookupHlr);
     }
 
     public MB_Contact viewContact() {
         return null;
     }
 
-    public void createContact() { 
-
+    public MB_Contact createContact() { 
+        return null;
     }
 
-    public void updateContact() {
-
+    public MB_Contact updateContact() {
+        return null;
     }
 
     public void deleteContact() {
