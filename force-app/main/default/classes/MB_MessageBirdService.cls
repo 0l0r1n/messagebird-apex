@@ -174,6 +174,15 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_LookupHlr) MB_MessageBirdWebService.requestByID(String.format(LOOKUPHLRPATH, new List<String> { String.valueOf(lookupHlr.msisdn) }), '', params, MB_LookupHlr.class);
     }
 
+    public MB_LookupHlr viewLookupHlr(Long phoneNumber){
+        if (phonenumber == null) {
+            throw new IllegalArgumentException(Label.MB_PhoneNumberMustBeSpecified);
+        }
+        final LookupHlr lookupHlr = new LookupHlr();
+        lookupHlr.setPhoneNumber(phonenumber);
+        return this.viewLookupHlr(lookupHlr);
+    }
+
     // TODO: Contacts
 
     // TODO: Groups
