@@ -9,6 +9,8 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     private static final String LOOKUPHLRPATH = '/lookup/{0}/hlr';
     private static final String CONTACTPATH = '/contacts';
     private static final String CONTACTGROUPPATH = CONTACTPATH + '/{0}/groups';
+    private static final String GROUPPATH = '/groups';
+    private static final String GROUPCONTACTPATH = GROUPPATH + '/{0}/contacts';
 
     public MB_MessageResponse sendMessage(MB_Message message) {
         return (MB_MessageResponse) MB_MessageBirdWebService.sendPayload(MESSAGESPATH, message, MB_MessageResponse.class);
