@@ -98,11 +98,14 @@ private class MB_MessageBirdServiceTest {
     }
 
     static testmethod void test_sendVerifyToken_withVerifyRequest() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_VerifyResponseMock());
+        MB_VerifyRequest verifyRequest = new MB_VerifyRequest('1234567');
+        MB_Verify verify = new MB_MessageBirdService().sendVerifyToken(verifyRequest);
     }
 
     static testmethod void test_sendVerifyToken_withRecipient() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_VerifyResponseMock());
+        MB_Verify verify = new MB_MessageBirdService().sendVerifyToken('1234567');
     }
 
     static testmethod void test_verifyToken() {

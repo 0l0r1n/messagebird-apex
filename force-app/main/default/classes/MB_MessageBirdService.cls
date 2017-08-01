@@ -113,8 +113,7 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     }
 
     public MB_Verify sendVerifyToken(String recipient) {
-        if (recipient == null || recipient.length() == 0)
-            throw new IllegalArgumentException(Label.MB_RecipientMustBeProvidedForVerify);
+        if (recipient == null || recipient.length() == 0) throw new IllegalArgumentException(Label.MB_RecipientMustBeProvidedForVerify);
         MB_VerifyRequest verifyRequest = new MB_VerifyRequest(recipient);
         return sendVerifyToken(verifyRequest);
     }
