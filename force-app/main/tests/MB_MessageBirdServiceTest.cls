@@ -97,14 +97,6 @@ private class MB_MessageBirdServiceTest {
         System.assertEquals('prepaid', balance.payment);
     }
 
-    static testmethod void test_getRequestHlr() {
-        
-    }
-
-    static testmethod void test_getViewHlr() {
-
-    }
-
     static testmethod void test_sendVerifyToken_withVerifyRequest() {
 
     }
@@ -157,11 +149,12 @@ private class MB_MessageBirdServiceTest {
 
     }
 
-    stati testmethod void test_updateContact() {
+    static testmethod void test_updateContact() {
 
     }
 
     static testmethod void test_deleteContact() {
-        
+
     }
+
 }
