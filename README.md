@@ -44,6 +44,8 @@ This library current supports:
 - Balance
 - HLR
 - Lookup
+- Verify Token
+- Contacts
 
 MessageBird has an awesome API, here are a few examples of what you can do:
 
@@ -67,4 +69,5 @@ The MB_MessageBirdService class contain the methods you need to call the Message
     mb.viewMessage(MESSAGE_ID);
 ```
 
+Checkout MB_MessageBirdService to see what you can do.
 
