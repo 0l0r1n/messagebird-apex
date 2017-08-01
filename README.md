@@ -1,4 +1,4 @@
-MessageBird Apex Library
+# MessageBird Apex Library
 
 MessageBird Wrapper Library for Salesforce, built using SFDX
 
