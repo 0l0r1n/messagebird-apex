@@ -97,4 +97,71 @@ private class MB_MessageBirdServiceTest {
         System.assertEquals('prepaid', balance.payment);
     }
 
+    static testmethod void test_getRequestHlr() {
+        
+    }
+
+    static testmethod void test_getViewHlr() {
+
+    }
+
+    static testmethod void test_sendVerifyToken_withVerifyRequest() {
+
+    }
+
+    static testmethod void test_sendVerifyToken_withRecipient() {
+
+    }
+
+    static testmethod void test_verifyToken() {
+
+    }
+
+    static testmethod void test_getVerifyObject() {
+
+    }
+
+    static testmethod void test_viewLookup() {
+
+    }
+
+    static testmethod void test_viewLookup_withPhoneNumber() {
+
+    }
+
+    static testmethod void test_requestLookupHlr() {
+
+    }
+
+    static testmethod void test_viewLookupHlr() {
+
+    }
+
+    static testmethod void test_viewLookupHlr_withPhoneNumber() {
+
+    }
+
+    static testmethod void test_viewContact() {
+
+    }
+
+    static testmethod void test_viewContact_withId() {
+        
+    }
+
+    static testmethod void test_viewContacts() {
+
+    }
+
+    static testmethod void test_createContact() {
+
+    }
+
+    stati testmethod void test_updateContact() {
+
+    }
+
+    static testmethod void test_deleteContact() {
+        
+    }
 }
