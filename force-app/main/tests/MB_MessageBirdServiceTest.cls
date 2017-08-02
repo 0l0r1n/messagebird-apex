@@ -114,15 +114,19 @@ private class MB_MessageBirdServiceTest {
     }
 
     static testmethod void test_getVerifyObject() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_VerifyResponseMock());
+        MB_Verify verify = new MB_MessageBirdService().getVerifyObject('1234567');
     }
 
     static testmethod void test_viewLookup() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_LookupResponseMock());
+        MB_Lookup lookup = new MB_Lookup(123231321L);
+        lookup = new MB_MessageBirdService().viewLookup(lookup);
     }
 
     static testmethod void test_viewLookup_withPhoneNumber() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_LookupResponseMock());
+        new MB_MessageBirdService().viewLookup(new MB_Lookup(123231321L));
     }
 
     static testmethod void test_requestLookupHlr() {
