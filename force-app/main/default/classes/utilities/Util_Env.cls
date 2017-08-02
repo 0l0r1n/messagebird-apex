@@ -13,15 +13,5 @@ public with sharing class Util_Env {
         if (kvpRecords == null) populateKvpRecords();
         return kvpRecords.get(key).Value__c;
     }
-
-    public static String getEnvValue(String key) {
-        return getValue(key + (getIsSandbox() ? '_sbx' : '_prd' ));
-    }
-
-    public static Boolean getIsSandbox() {
-        if (isSandbox == null)
-		    isSandbox = [SELECT IsSandbox FROM Organization limit 1].IsSandbox;
-        return isSandbox;
-	}
     
 }
