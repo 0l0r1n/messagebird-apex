@@ -109,7 +109,8 @@ private class MB_MessageBirdServiceTest {
     }
 
     static testmethod void test_verifyToken() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_VerifyResponseMock());
+        MB_Verify verify = new MB_MessageBirdService().verifyToken('1234567', '123456');
     }
 
     static testmethod void test_getVerifyObject() {
