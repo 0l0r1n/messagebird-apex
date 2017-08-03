@@ -130,15 +130,24 @@ private class MB_MessageBirdServiceTest {
     }
 
     static testmethod void test_requestLookupHlr() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_HlrResponseMock());
+        MB_LookupHlr lookupHlr = new MB_LookupHlr();
+        lookupHlr.msisdn = 321321312L;
+        lookupHlr.reference = 'ref';
+        new MB_MessageBirdService().requestLookupHlr(lookupHlr);
     }
 
     static testmethod void test_viewLookupHlr() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_HlrResponseMock());
+        MB_LookupHlr lookupHlr = new MB_LookupHlr();
+        lookupHlr.msisdn = 321321312L;
+        lookupHlr.reference = 'ref';
+        new MB_MessageBirdService().viewLookupHlr(lookupHlr);
     }
 
     static testmethod void test_viewLookupHlr_withPhoneNumber() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_HlrResponseMock());
+        new MB_MessageBirdService().viewLookupHlr(32321312131L);
     }
 
     static testmethod void test_viewContact() {
