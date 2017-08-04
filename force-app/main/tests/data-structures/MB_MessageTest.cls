@@ -17,4 +17,7 @@ private class MB_MessageTest {
         binaryMsg.validity = 1;
     }
 
+    static testmethod void test_createBinarySMS() {
+        
+    }
 }
