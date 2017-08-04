@@ -17,7 +17,9 @@ private class MB_MessageTest {
         binaryMsg.validity = 1;
     }
 
-    static testmethod void test_createBinarySMS() {
-        
+    static testmethod void test_setPremiumSms() {
+        MB_Message message = new MB_Message('Link', 'Ganondorf', '321321231');
+        message.setPremiumSMS('shortcode', 'keyword', 'tariff', 'mid');
+        System.assertEquals(MB_MsgType.premium, message.type);
     }
 }
