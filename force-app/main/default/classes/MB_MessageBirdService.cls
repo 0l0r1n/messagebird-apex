@@ -211,15 +211,10 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
     }
 
     public void deleteContact() {
-        
+        //if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
+        MB_MessageBirdWebService.deleteById(CONTACTPATH, id);
     }
 
-    
-
-    // TODO: Groups
-
-    // TODO: Chat
-    
     public class MessageBirdException extends Exception {}
     public class IllegalArgumentException extends Exception {}
     public class ValidityException extends Exception {}
