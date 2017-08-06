@@ -215,7 +215,7 @@ public class MB_MessageBirdService {
         return null;
     }
 
-    public void deleteContact() {
+    public void deleteContact(String id) {
         //if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
         MB_MessageBirdWebService.deleteById(CONTACTPATH, id);
     }
