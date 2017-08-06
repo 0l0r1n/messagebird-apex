@@ -1,4 +1,4 @@
-public class MB_MessageBirdService implements MB_IMessageBirdService {
+public class MB_MessageBirdService {
     
     private static final String BALANCEPATH = '/balance';
     private static final String HLRPATH = '/hlr';
@@ -202,9 +202,14 @@ public class MB_MessageBirdService implements MB_IMessageBirdService {
         return (MB_Contact) MB_MessageBirdWebService.requestById(CONTACTPATH, '', MB_Contact.class);
     }
 
+    public MB_Contact createContact(Long phoneNumber) { 
+        return (MB_Contact) MB_MessageBirdWebService.sendPayLoad(CONTACTPATH, JSON.serialize(new MB_Contact(phoneNumber)), MB_Contact.class);
+    }
+
     public MB_Contact createContact() { 
         return null;
     }
+
 
     public MB_Contact updateContact() {
         return null;
