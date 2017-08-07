@@ -211,8 +211,8 @@ public class MB_MessageBirdService {
     }
 
 
-    public MB_Contact updateContact() {
-        return null;
+    public MB_Contact updateContact(MB_Contact contact) {
+        return (MB_Contact) MB_MessageBirdWebService.sendPayLoad(CONTACTPATH + '/' + contact.id, JSON.serialize(contact), MB_Contact.class);
     }
 
     public void deleteContact(String id) {
