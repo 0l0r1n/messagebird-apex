@@ -198,8 +198,8 @@ public class MB_MessageBirdService {
         return (MB_Contact) MB_MessageBirdWebService.requestById(CONTACTPATH, contact.id, MB_Contact.class);
     }
 
-    public MB_Contact[] viewContacts() {
-        return (MB_Contact[]) MB_MessageBirdWebService.requestById(CONTACTPATH, '', MB_Contact[].class);
+    public MB_ContactList viewContacts(Integer offset, Integer limit_x) {
+        return (MB_ContactList) MB_MessageBirdWebService.requestList(CONTACTPATH, offset, limit_x, MB_ContactList.class);
     }
 
     public MB_Contact createContact(Long phoneNumber) { 
@@ -212,7 +212,7 @@ public class MB_MessageBirdService {
 
 
     public MB_Contact updateContact(MB_Contact contact) {
-        return (MB_Contact) MB_MessageBirdWebService.sendPayLoad(CONTACTPATH + '/' + contact.id, JSON.serialize(contact), MB_Contact.class);
+        return (MB_Contact) MB_MessageBirdWebService.sendPayLoad(CONTACTPATH, contact.id, JSON.serialize(contact), MB_Contact.class);
     }
 
     public void deleteContact(String id) {
