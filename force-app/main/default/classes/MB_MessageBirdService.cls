@@ -210,7 +210,6 @@ public class MB_MessageBirdService {
         return (MB_Contact) MB_MessageBirdWebService.sendPayLoad(CONTACTPATH, JSON.serialize(contact), MB_Contact.class);
     }
 
-
     public MB_Contact updateContact(MB_Contact contact) {
         return (MB_Contact) MB_MessageBirdWebService.sendPayLoad(CONTACTPATH, contact.id, JSON.serialize(contact), MB_Contact.class);
     }
