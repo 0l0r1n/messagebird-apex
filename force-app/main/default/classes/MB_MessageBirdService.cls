@@ -198,16 +198,16 @@ public class MB_MessageBirdService {
         return (MB_Contact) MB_MessageBirdWebService.requestById(CONTACTPATH, contact.id, MB_Contact.class);
     }
 
-    public MB_Contact viewContacts() {
-        return (MB_Contact) MB_MessageBirdWebService.requestById(CONTACTPATH, '', MB_Contact.class);
+    public MB_Contact[] viewContacts() {
+        return (MB_Contact[]) MB_MessageBirdWebService.requestById(CONTACTPATH, '', MB_Contact[].class);
     }
 
     public MB_Contact createContact(Long phoneNumber) { 
         return (MB_Contact) MB_MessageBirdWebService.sendPayLoad(CONTACTPATH, JSON.serialize(new MB_Contact(phoneNumber)), MB_Contact.class);
     }
 
-    public MB_Contact createContact() { 
-        return null;
+    public MB_Contact createContact(MB_Contact contact) { 
+        return (MB_Contact) MB_MessageBirdWebService.sendPayLoad(CONTACTPATH, JSON.serialize(contact), MB_Contact.class);
     }
 
 
@@ -216,7 +216,7 @@ public class MB_MessageBirdService {
     }
 
     public void deleteContact(String id) {
-        //if (id == null) throw new IllegalArgumentException(Label.MB_MessageIdMustBeSpecified);
+        if (id == null) throw new IllegalArgumentException(Label.MB_IdMustBeProvidedforContact);
         MB_MessageBirdWebService.deleteById(CONTACTPATH, id);
     }
 

@@ -26,6 +26,10 @@ public with sharing class MB_MessageBirdWebService {
         return JSON.deserialize(doCallout(path, JSON.serialize(payload), 'POST'), t);
     }
 
+    public static Object sendPayload(String path, String id, Object payload, Type t){
+        return JSON.deserialize(doCallout(path + '/' + id, JSON.serialize(payload), 'PATCH'), t);
+    }
+
     private static String doCallout(String path, String body, String method) {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
