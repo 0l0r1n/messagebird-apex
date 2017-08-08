@@ -1,5 +1,9 @@
-public with sharing class MB_ContactResponseMock {
-    public MB_ContactResponseMock() {
+public class MB_ContactResponseMock implements HttpCalloutMock {
 
+    public HttpResponse respond(HttpRequest req){
+        HttpResponse response = new HttpResponse();
+        response.setBody(JSON.serialize(new MB_Contact(32132132131L)));
+        return response;
     }
+
 }

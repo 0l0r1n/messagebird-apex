@@ -151,27 +151,26 @@ private class MB_MessageBirdServiceTest {
     }
 
     static testmethod void test_viewContact() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_ContactResponseMock());
+        new MB_MessageBirdService().viewContact(new MB_Contact());
     }
 
     static testmethod void test_viewContact_withId() {
-        
-    }
-
-    static testmethod void test_viewContacts() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_ContactResponseMock());
+        new MB_MessageBirdService().viewContact('some id');
     }
 
     static testmethod void test_createContact() {
-
+        Test.setMock(HttpCalloutMock.class, new MB_ContactResponseMock());
+        new MB_MessageBirdService().createContact(new MB_Contact());
     }
 
     static testmethod void test_updateContact() {
-
+        
     }
 
     static testmethod void test_deleteContact() {
-
+        new MB_MessageBirdService().deleteContact('some id');
     }
 
 }
