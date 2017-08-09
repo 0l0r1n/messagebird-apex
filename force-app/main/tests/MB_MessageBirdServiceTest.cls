@@ -168,7 +168,8 @@ private class MB_MessageBirdServiceTest {
     }
 
     static testmethod void test_updateContact() {
-        
+        Test.setMock(HttpCalloutMock.class, new MB_ContactResponseMock());
+        new MB_MessageBirdService().updateContact(new MB_Contact(3231321L));
     }
 
     static testmethod void test_deleteContact() {
