@@ -47,6 +47,11 @@ private class MB_MessageBirdServiceTest {
     static testmethod void test_getListMessages(){
         Test.setMock(HttpCalloutMock.class, new MB_MessageListResponseMock());
         MB_MessageList listResponse = new MB_MessageBirdService().listMessages(0, 0);
+        System.assertEquals(null, listResponse.items);
+        System.assertEquals(null, listResponse.limit_x);
+        System.assertEquals(null, listResponse.offset);
+        System.assertEquals(null, listResponse.totalCount);
+        System.assertEquals(null, listResponse.links);
     }
 
     static testmethod void test_getRequestHlr(){
