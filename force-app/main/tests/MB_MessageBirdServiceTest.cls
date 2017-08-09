@@ -11,6 +11,21 @@ private class MB_MessageBirdServiceTest {
         Test.setMock(HttpCalloutMock.class, new MB_SendMessageResponseMock());
         MB_MessageResponse messageResponse = new MB_MessageBirdService().sendMessage('Mario', 'Luigi', new List<Long> { 00000000000L });
         System.assertEquals(MB_SendMessageResponseMock.SMS_BODY, messageResponse.body);
+        System.assertEquals(null, messageResponse.createdDatetime);
+        System.assertEquals(null, messageResponse.datacoding);
+        System.assertEquals(null, messageResponse.direction);
+        System.assertEquals(null, messageResponse.direction);
+        System.assertEquals(null, messageResponse.gateway);
+        System.assertEquals(null, messageResponse.href);
+        System.assertEquals(null, messageResponse.id);
+        System.assertEquals(null, messageResponse.mclass);
+        System.assertEquals(null, messageResponse.originator);
+        System.assertEquals(null, messageResponse.recipients);
+        System.assertEquals(null, messageResponse.reference);
+        System.assertEquals(null, messageResponse.scheduledDatetime);
+        System.assertEquals(null, messageResponse.type);
+        System.assertEquals(null, messageResponse.typeDetails);
+        System.assertEquals(null, messageResponse.validity);
     }
 
     static testmethod void test_sendMessage_withBaseArgumentsAndReference(){
@@ -66,7 +81,22 @@ private class MB_MessageBirdServiceTest {
 
     static testmethod void test_sendVoiceMessage_withBaseArguments(){
         Test.setMock(HttpCalloutMock.class, new MB_VoiceMessageResponseMock());
-        new MB_MessageBirdService().sendVoiceMessage(new MB_VoiceMessage('hi there!', '4815163245'));
+        MB_VoiceMessage voiceMessage = new MB_VoiceMessage('You shall not pass', new List<Long> {312312312L});
+        voiceMessage.originator = 'me';
+        voiceMessage.language = 'pt-br';
+        voiceMessage.scheduleDateTime = '';
+        voiceMessage.repeat = 2;
+        MB_VoiceMessageResponse response = new MB_MessageBirdService().sendVoiceMessage(voiceMessage);
+        System.assertEquals(null, response.body);
+        System.assertEquals(null, response.createdDatetime);
+        System.assertEquals(null, response.href);
+        System.assertEquals(null, response.ifMachine);
+        System.assertEquals(null, response.language);
+        System.assertEquals(null, response.originator);
+        System.assertEquals(null, response.voice);
+        System.assertEquals(null, response.repeat);
+        System.assertEquals(null, response.recipients);
+        System.assertEquals(null, response.reference);
     }
 
     static testmethod void test_sendVoiceMessage_withOtherArguments(){
@@ -100,6 +130,8 @@ private class MB_MessageBirdServiceTest {
         Test.setMock(HttpCalloutMock.class, new MB_GetBalanceResponseMock());
         MB_Balance balance = new MB_MessageBirdService().getBalance();
         System.assertEquals('prepaid', balance.payment);
+        System.assertEquals('credits', balance.type);
+        System.assertEquals(7, balance.amount);
     }
 
     static testmethod void test_sendVerifyToken_withVerifyRequest() {
