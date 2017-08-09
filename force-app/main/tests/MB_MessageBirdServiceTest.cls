@@ -172,6 +172,7 @@ private class MB_MessageBirdServiceTest {
     }
 
     static testmethod void test_deleteContact() {
+        Test.setMock(HttpCalloutMock.class, new MB_EmptyResponse());
         new MB_MessageBirdService().deleteContact('some id');
     }
 
