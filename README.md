@@ -56,17 +56,17 @@ The MB_MessageBirdService class contain the methods you need to call the Message
 - Sending a SMS:
 ```apex
     MB_Message message = new MB_Message('Ganondorf', 'I\'ve got your pretty princess, come get me', '4815162342'); // multiple constructors available
-    mb.sendMessage(message);
+    messageBirdService.sendMessage(message);
 ```
 
 - Getting your balance
 ```apex
-    mb.getBalance();
+    messageBirdService.getBalance();
 ```
 
 - Checking a message based on id
 ```apex
-    mb.viewMessage(MESSAGE_ID);
+    messageBirdService.viewMessage(MESSAGE_ID);
 ```
 
 Checkout MB_MessageBirdService to see what you can do.
