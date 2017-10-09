@@ -1,11 +1,17 @@
 global class SendSmsAction {    
 
     @InvocableMethod(label='Send Sms' description='Sends a SMS with specified content')
-    global static void sendSms(SmsPb smsRequest){
-        new MB_MessageBirdService().sendMessage(smsRequest.originator, smsRequest.body, smsRequest.recipients);
+    global static void sendSms(List<SmsRequest> smsRequests){
+        dispatch(smsRequests);
     }
-    
-    global class SmsPb {
+
+    private static void dispatch(List<SmsRequest> smsRequests) {
+        MB_MessageBirdService messageBird = new MB_MessageBirdService();
+        for (SmsRequest request : smsRequests)
+            messageBird.sendMessage(new MB_Message(request.originator, request.body, request.recipients));
+    }
+
+    global class SmsRequest {
         @InvocableVariable(required=true)
         global String originator;
         @InvocableVariable(required=true)
