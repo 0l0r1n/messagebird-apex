@@ -39,7 +39,6 @@ public with sharing class MB_MessageBirdWebService {
         request.setHeader('Authorization','AccessKey ' + Util_Env.getValue('MB_AccessKey'));
         if (body != null) request.setBody(body);
         HttpResponse response = http.send(request);
-        System.debug(response.getBody());
         return response.getBody();
     }
 }
