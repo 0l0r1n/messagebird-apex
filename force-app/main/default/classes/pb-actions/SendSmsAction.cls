@@ -1,5 +1,10 @@
-global class SendSmsAction {
+global class SendSmsAction {    
 
+    @InvocableMethod(label='Send Sms' description='Sends a SMS with specified content')
+    global static void sendSms(SmsPb smsRequest){
+        new MB_MessageBirdService().sendMessage(smsRequest.originator, smsRequest.body, smsRequest.recipients);
+    }
+    
     global class SmsPb {
         @InvocableVariable(required=true)
         global String originator;
@@ -8,11 +13,5 @@ global class SendSmsAction {
         @InvocableVariable(required=true)
         global String body;
     }
-    
 
-    @InvocableMethod(label='Send Sms' description='Sends a SMS with specified content')
-    global static void sendSms(SmsPb smsRequest){
-        new MB_MessageBirdService().sendMessage(smsRequest.originator, smsRequest.body, smsRequest.recipients);
-    }
-    
 }
